@@ -2,8 +2,10 @@ package gestao.micro.negocios;
 
 
 import gestao.micro.negocios.model.Product;
+import gestao.micro.negocios.view.LoginController;
 import gestao.micro.negocios.view.ProductEditDialogController;
 import gestao.micro.negocios.view.ProductOverviewController;
+import gestao.micro.negocios.view.RootController;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -42,7 +44,7 @@ public class MainApp extends Application {
 
         initRootLayout();
 
-        showProductOverview();
+        showLogin();
     }
     
     /**
@@ -50,15 +52,30 @@ public class MainApp extends Application {
      */
     public void initRootLayout() {
         try {
-            // Carrega o root layout do arquivo fxml.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
             
-            // Mostra a scene (cena) contendo o root layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
+            RootController controller = loader.getController();
+            controller.setMainApp(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showLogin() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/Login.fxml"));
+            AnchorPane login = (AnchorPane) loader.load();
+
+            rootLayout.setCenter(login);
+
+            LoginController controller = loader.getController();
+            controller.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
         }

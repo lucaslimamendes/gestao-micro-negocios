@@ -6,13 +6,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" stylesheets="@Theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" stylesheets="@Theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestao.micro.negocios.view.RootController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="Abrir" />
           <Menu mnemonicParsing="false" text="Ajuda" />
-          <Menu mnemonicParsing="false" text="Sair" />
+          <Menu mnemonicParsing="false" onAction="#handleSair" text="Sair">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleSair" text="tchau tchau" />
+               </items></Menu>
         </menus>
       </MenuBar>
    </top>
