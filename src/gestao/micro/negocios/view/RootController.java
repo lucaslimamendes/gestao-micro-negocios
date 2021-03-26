@@ -17,6 +17,16 @@ public class RootController {
     }
     
     @FXML
+    private void handleProduct() {
+        mainApp.showProductOverview();
+    }
+    
+    @FXML
+    private void handleDashboard() {
+        mainApp.showDashboard();
+    }
+    
+    @FXML
     private void handleSair() {
         mainApp.showLogin();
     }

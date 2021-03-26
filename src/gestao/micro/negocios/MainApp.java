@@ -2,6 +2,7 @@ package gestao.micro.negocios;
 
 
 import gestao.micro.negocios.model.Product;
+import gestao.micro.negocios.view.DashboardController;
 import gestao.micro.negocios.view.LoginController;
 import gestao.micro.negocios.view.ProductEditDialogController;
 import gestao.micro.negocios.view.ProductOverviewController;
@@ -75,6 +76,21 @@ public class MainApp extends Application {
             rootLayout.setCenter(login);
 
             LoginController controller = loader.getController();
+            controller.setMainApp(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showDashboard() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/Dashboard.fxml"));
+            AnchorPane dash = (AnchorPane) loader.load();
+
+            rootLayout.setCenter(dash);
+
+            DashboardController controller = loader.getController();
             controller.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
