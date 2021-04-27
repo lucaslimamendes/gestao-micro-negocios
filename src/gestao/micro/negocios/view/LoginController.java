@@ -27,6 +27,11 @@ public class LoginController {
     }
 
     @FXML
+    private void handleRegister() {
+        mainApp.showRegister();
+    }
+
+    @FXML
     private void handleLimpar() {
         user.setText("");
         password.setText("");
