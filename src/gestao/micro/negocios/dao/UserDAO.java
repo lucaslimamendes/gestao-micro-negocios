@@ -31,7 +31,6 @@ public class UserDAO {
     public List<User> createPerson(String usrName, String usrEmail, String usrPass) throws SQLException {
         try (
             Statement stmnt = connection.createStatement();
-            ResultSet useRs = stmnt.executeQuery("use 8BqaG7Joaq;");
         ){
             int create = stmnt.executeUpdate("INSERT INTO `8BqaG7Joaq`.`empresa` (`email`, `senha`, `nome`) VALUES ('"+usrEmail+"', '"+usrPass+"', '"+usrName+"');");
             ResultSet rs = stmnt.executeQuery("select * from empresa;");
@@ -43,8 +42,32 @@ public class UserDAO {
                 User person = new User(name, email, pass);
                 userList.add(person);
             }
+            rs.close();
             return userList;
         } 
+    }
+
+    public User Login(String usrEmail, String usrPass) throws SQLException {
+        try (
+            Statement stmnt = connection.createStatement();
+        ){
+            String name = null;
+            String email = null;
+            String pass = null;
+            ResultSet rs = stmnt.executeQuery("select * from `8BqaG7Joaq`.`empresa` where `email` = '"+usrEmail+"' and `senha` = '"+usrPass+"' limit 1;");
+            while (rs.next()) {
+                name = rs.getString("nome");
+                email = rs.getString("email");
+                pass = rs.getString("senha");
+            }
+            if( name == null || email == null ){
+                return null;
+            }else {
+                User person = new User(name, email, pass);
+                rs.close();
+                return person;
+            }
+        }
     }
 
     public List<User> getPersonList() throws SQLException {
