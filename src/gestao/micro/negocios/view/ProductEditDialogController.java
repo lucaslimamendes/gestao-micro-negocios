@@ -8,6 +8,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 import gestao.micro.negocios.model.Product;
+import gestao.micro.negocios.dao.ProductDAO;
+import java.sql.SQLException;
+
 
 /**
  *
@@ -15,28 +18,25 @@ import gestao.micro.negocios.model.Product;
  */
 
 public class ProductEditDialogController {
+    private ProductDAO dataAccessor ;
 
     @FXML
     private TextField nameField;
     @FXML
     private TextField priceField;
     @FXML
-    private TextField invetaryField;
-    @FXML
-    private TextField typeField;
-
-
     private Stage dialogStage;
+    
     private Product product;
     private boolean okClicked = false;
-
-    /**
-     * Inicializa a classe controlle. Este método é chamado automaticamente
-     * após o arquivo fxml ter sido carregado.
-     */
+  
     @FXML
-    private void initialize() {
-    }
+    private TextField UnitField;
+    @FXML
+    private TextField quantityField;
+    @FXML
+    private TextField categoryField;
+
 
     /**
      * Define o palco deste dialog.
@@ -57,8 +57,9 @@ public class ProductEditDialogController {
 
         nameField.setText(product.getName());
         priceField.setText(product.getPrice());
-        typeField.setText(product.getType());
-        invetaryField.setText(Integer.toString(product.getInventory()));
+        categoryField.setText(product.getType());
+        quantityField.setText(product.getInventory().toString());
+        UnitField.setText(product.getUnitPrice());
     }
 
     public boolean isOkClicked() {
@@ -66,13 +67,16 @@ public class ProductEditDialogController {
     }
 
     @FXML
-    private void handleOk() {
+    private void handleOk() throws Exception {
         if (isInputValid()) {
             product.setName(nameField.getText());
             product.setPrice(priceField.getText());
-            product.setType(typeField.getText());
-            product.setInventory(Integer.parseInt(invetaryField.getText()));
-
+            product.setType(categoryField.getText());
+            product.setInventory(Integer.parseInt(quantityField.getText()));
+            product.setUnitPrice(UnitField.getText());
+            
+            dataAccessor = new ProductDAO("8BqaG7Joaq", "KZHhe6stfM");
+            dataAccessor.createProduct(product);
             okClicked = true;
             dialogStage.close();
         }
@@ -92,15 +96,15 @@ public class ProductEditDialogController {
         if (priceField.getText() == null || priceField.getText().length() == 0) {
             errorMessage += "Preço inválido!\n"; 
         }
-        if (typeField.getText() == null || typeField.getText().length() == 0) {
+        if (categoryField.getText() == null || categoryField.getText().length() == 0) {
             errorMessage += "Tipo inválido!\n"; 
         }
 
-        if (invetaryField.getText() == null || invetaryField.getText().length() == 0) {
+        if (quantityField.getText() == null || quantityField.getText().length() == 0) {
             errorMessage += "Estoque inválido!\n"; 
         } else {
             try {
-                Integer.parseInt(invetaryField.getText());
+                Integer.parseInt(quantityField.getText());
             } catch (NumberFormatException e) {
                 errorMessage += "Estoque inválido (deve ser um inteiro)!\n"; 
             }

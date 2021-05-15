@@ -14,14 +14,20 @@ import javafx.beans.property.SimpleStringProperty;
 public class Product {
     private final StringProperty name;
     private final StringProperty price;
+    private final StringProperty unitprc;
     private final IntegerProperty inventory;
     private final StringProperty type;
 
 
     public Product() {
-        this(null, null);
+        this.name = new SimpleStringProperty("");
+        this.price = new SimpleStringProperty("");
+        this.unitprc = new SimpleStringProperty("");
+        // Alguns dados de exemplo, apenas para testes.
+        this.inventory = new SimpleIntegerProperty(0);
+        this.type = new SimpleStringProperty("");
     }
-
+/*
     public Product(String name, String price) {
         this.name = new SimpleStringProperty(name);
         this.price = new SimpleStringProperty(price);
@@ -29,6 +35,15 @@ public class Product {
         // Alguns dados de exemplo, apenas para testes.
         this.inventory = new SimpleIntegerProperty(7);
         this.type = new SimpleStringProperty("Utilitário");
+    }
+  */  
+    public Product(String qtd, String desc, String cat, String unit, String value) {
+        this.name = new SimpleStringProperty(desc);
+        this.price = new SimpleStringProperty(value);
+        this.unitprc = new SimpleStringProperty(unit);
+        // Alguns dados de exemplo, apenas para testes.
+        this.inventory = new SimpleIntegerProperty(Integer.getInteger(qtd));
+        this.type = new SimpleStringProperty(cat);
     }
 
     public String getName() {
@@ -51,6 +66,14 @@ public class Product {
         this.price.set(price);
     }
 
+    public String getUnitPrice() {
+        return unitprc.get();
+    }
+
+    public void setUnitPrice(String price) {
+        this.unitprc.set(price);
+    }
+    
     public StringProperty priceProperty() {
         return price;
     }
@@ -78,5 +101,4 @@ public class Product {
     public StringProperty typeProperty() {
         return type;
     }
-
 }

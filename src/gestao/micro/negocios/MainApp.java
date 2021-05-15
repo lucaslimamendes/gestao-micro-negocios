@@ -27,12 +27,14 @@ public class MainApp extends Application {
     private ObservableList<Product> productData = FXCollections.observableArrayList();
     
     public MainApp() {
+        /*
         productData.add(new Product("Bexiga Gigante", "18.68"));
         productData.add(new Product("Bexiga Pequena", "2.89"));
         productData.add(new Product("Bexiga Média", "9.32"));
         productData.add(new Product("Confete", "7.87"));
         productData.add(new Product("Apito", "1.68"));
         productData.add(new Product("Biribinha", "3.34"));
+        */
     }
     
     public ObservableList<Product> getProductData() {
