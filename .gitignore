@@ -1,2 +1,8 @@
 /build/
 /dist/
+
+build/built-jar.properties
+dist/gestao-micro-negocios.html
+dist/gestao-micro-negocios.jar
+dist/gestao-micro-negocios.jnlp
+nbproject/private/private.xml
