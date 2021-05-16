@@ -32,19 +32,21 @@ public class ProductDAO {
         }
     }
     
-    public void createProduct (String prdQtd, String prdDesc, String prdCat, String prdUnit, String prdValue) throws SQLException {
+    /*public void createProduct (String prdQtd, String prdDesc, String prdCat, String prdUnit, String prdValue) throws SQLException {
         try (
             Statement stmnt = connection.createStatement();
         ){
-            stmnt.executeUpdate("INSERT INTO `8BqaG7Joaq`.`produto` (`quantidade`, `descricao`, `categoria`, `valorUnitario`, `valorVenda`) VALUES ('"+prdDesc+"', '"+prdCat+"', '"+prdUnit+"', '"+prdValue+"');");
+            stmnt.executeUpdate("INSERT INTO `8BqaG7Joaq`.`produto` (`quantidade`, `descricao`, `categoria`, "
+                    + "`valorUnitario`, `valorVenda`) VALUES ('"+prdQtd+"', '"+prdDesc+"', '"+prdCat+"', '"+prdUnit+"', '"+prdValue+"');");
         }
-    }
+    }*/
     
      public void createProduct (Product prod) throws SQLException {
         try (
             Statement stmnt = connection.createStatement();
         ){
-            stmnt.executeUpdate("INSERT INTO `8BqaG7Joaq`.`produto` (`quantidade`, `descricao`, `categoria`, `valorUnitario`, `valorVenda`) VALUES ('"+prod.getInventory()+"', '"+prod.getType()+"', '"+prod.getUnitPrice()+"', '"+prod.getPrice()+"');");
+            stmnt.executeUpdate("INSERT INTO `8BqaG7Joaq`.`produto` (`quantidade`, `descricao`, `categoria`, "
+                    + "`valorUnitario`, `valorVenda`) VALUES ('"+prod.getInventory()+"', '"+prod.getName()+"', '"+prod.getType()+"', '"+prod.getUnitPrice()+"', '"+prod.getPrice()+"');");
         }
     }
         
