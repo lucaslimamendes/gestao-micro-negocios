@@ -6,6 +6,7 @@
 package gestao.micro.negocios.dao;
 
 import gestao.micro.negocios.model.Product;
+import gestao.micro.negocios.MainApp;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -13,6 +14,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -20,6 +23,7 @@ import java.util.List;
  */
 public class ProductDAO {
     private final Connection connection;
+    private MainApp mainApp;
 
     public ProductDAO(String user, String password) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         Class.forName("com.mysql.jdbc.Driver");
@@ -55,7 +59,7 @@ public class ProductDAO {
         try (
             Statement stmnt = connection.createStatement();
             ResultSet rs = stmnt.executeQuery("SELECT * FROM `8BqaG7Joaq`.`produto`");
-        ){    
+        ){
             while (rs.next()) {
                 String qtd = rs.getString("quantidade");
                 String desc = rs.getString("descricao");

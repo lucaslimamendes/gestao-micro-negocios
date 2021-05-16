@@ -1,6 +1,7 @@
 package gestao.micro.negocios;
 
 
+import gestao.micro.negocios.dao.ProductDAO;
 import gestao.micro.negocios.model.Product;
 import gestao.micro.negocios.view.DashboardController;
 import gestao.micro.negocios.view.LoginController;
@@ -9,6 +10,8 @@ import gestao.micro.negocios.view.ProductEditDialogController;
 import gestao.micro.negocios.view.ProductOverviewController;
 import gestao.micro.negocios.view.RootController;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -24,17 +27,23 @@ public class MainApp extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
+    private ProductDAO dataAccessor ;
     private ObservableList<Product> productData = FXCollections.observableArrayList();
     
     public MainApp() {
-        /*
-        productData.add(new Product("Bexiga Gigante", "18.68"));
-        productData.add(new Product("Bexiga Pequena", "2.89"));
-        productData.add(new Product("Bexiga Média", "9.32"));
-        productData.add(new Product("Confete", "7.87"));
-        productData.add(new Product("Apito", "1.68"));
-        productData.add(new Product("Biribinha", "3.34"));
-        */
+        try {
+            dataAccessor = new ProductDAO("8BqaG7Joaq", "KZHhe6stfM");
+            List<Product> prdList = dataAccessor.getProductList();
+            for (int i = 0; i < prdList.size(); i++) {
+                System.out.println(prdList.get(i).getName());
+                productData.add(new Product(Integer.toString(prdList.get(i).getInventory()),
+                        prdList.get(i).getName(),prdList.get(i).getName(),prdList.get(i).getUnitPrice(),
+                        prdList.get(i).getPrice()));
+            }
+        }catch(SQLException e){} catch (ClassNotFoundException ex) {   
+        } catch (InstantiationException ex) {
+        } catch (IllegalAccessException ex) {
+        }
     }
     
     public ObservableList<Product> getProductData() {

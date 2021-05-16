@@ -23,7 +23,6 @@ public class Product {
         this.name = new SimpleStringProperty("");
         this.price = new SimpleStringProperty("");
         this.unitprc = new SimpleStringProperty("");
-        // Alguns dados de exemplo, apenas para testes.
         this.inventory = new SimpleIntegerProperty(0);
         this.type = new SimpleStringProperty("");
     }
@@ -41,8 +40,7 @@ public class Product {
         this.name = new SimpleStringProperty(desc);
         this.price = new SimpleStringProperty(value);
         this.unitprc = new SimpleStringProperty(unit);
-        // Alguns dados de exemplo, apenas para testes.
-        this.inventory = new SimpleIntegerProperty(Integer.getInteger(qtd));
+        this.inventory = new SimpleIntegerProperty(Integer.parseInt(qtd));
         this.type = new SimpleStringProperty(cat);
     }
 

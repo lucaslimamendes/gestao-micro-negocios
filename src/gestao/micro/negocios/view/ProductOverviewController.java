@@ -5,7 +5,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import gestao.micro.negocios.MainApp;
+import gestao.micro.negocios.dao.ProductDAO;
 import gestao.micro.negocios.model.Product;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
@@ -14,6 +19,8 @@ import javafx.scene.control.Alert.AlertType;
  * @author upper
  */
 public class ProductOverviewController {
+    private ProductDAO dataAccessor ;
+    
     @FXML
     private TableView<Product> productTable;
     @FXML
@@ -36,7 +43,7 @@ public class ProductOverviewController {
     }
 
     @FXML
-    private void initialize() {
+    private void initialize() throws SQLException {
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         priceColumn.setCellValueFactory(cellData -> cellData.getValue().priceProperty());
         
