@@ -28,6 +28,7 @@ public class ProductDAO {
     public ProductDAO(String user, String password) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         Class.forName("com.mysql.jdbc.Driver");
         connection = DriverManager.getConnection("jdbc:mysql://remotemysql.com:3306?autoReconnect=true&useSSL=false", user, password);
+        LogDAO.getInstance().GenerateLog("Conexão obtida com o banco");
     }
 
     public void shutdown() throws SQLException {
@@ -36,30 +37,23 @@ public class ProductDAO {
         }
     }
     
-    /*public void createProduct (String prdQtd, String prdDesc, String prdCat, String prdUnit, String prdValue) throws SQLException {
-        try (
-            Statement stmnt = connection.createStatement();
-        ){
-            stmnt.executeUpdate("INSERT INTO `8BqaG7Joaq`.`produto` (`quantidade`, `descricao`, `categoria`, "
-                    + "`valorUnitario`, `valorVenda`) VALUES ('"+prdQtd+"', '"+prdDesc+"', '"+prdCat+"', '"+prdUnit+"', '"+prdValue+"');");
-        }
-    }*/
-    
-     public void createProduct (Product prod) throws SQLException {
+     public void createProduct (Product prod) throws Exception {
         try (
             Statement stmnt = connection.createStatement();
         ){
             stmnt.executeUpdate("INSERT INTO `8BqaG7Joaq`.`produto` (`quantidade`, `descricao`, `categoria`, "
                     + "`valorUnitario`, `valorVenda`) VALUES ('"+prod.getInventory()+"', '"+prod.getName()+"', '"+prod.getType()+"', '"+prod.getUnitPrice()+"', '"+prod.getPrice()+"');");
+            LogDAO.getInstance().GenerateLog("Inserir na tabela PRODUTO para CADASTRO PRODUTO");
         }
     }
         
-    public List<Product> getProductList() throws SQLException {
+    public List<Product> getProductList() throws Exception {
         List<Product> prdList = new ArrayList<>();
         try (
             Statement stmnt = connection.createStatement();
-            ResultSet rs = stmnt.executeQuery("SELECT * FROM `8BqaG7Joaq`.`produto`");
         ){
+            ResultSet rs = stmnt.executeQuery("SELECT * FROM `8BqaG7Joaq`.`produto`");
+            LogDAO.getInstance().GenerateLog("Consulta na tabela PRODUTO");
             while (rs.next()) {
                 String qtd = rs.getString("quantidade");
                 String desc = rs.getString("descricao");

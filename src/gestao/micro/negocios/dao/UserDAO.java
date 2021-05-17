@@ -28,12 +28,14 @@ public class UserDAO {
         }
     }
 
-    public List<User> createPerson(String usrName, String usrEmail, String usrPass) throws SQLException {
+    public List<User> createPerson(String usrName, String usrEmail, String usrPass) throws Exception {
         try (
             Statement stmnt = connection.createStatement();
         ){
             int create = stmnt.executeUpdate("INSERT INTO `8BqaG7Joaq`.`empresa` (`email`, `senha`, `nome`) VALUES ('"+usrEmail+"', '"+usrPass+"', '"+usrName+"');");
+            LogDAO.getInstance().GenerateLog("Inserir na tabela EMPRESA para CADASTRO EMPRESA");
             ResultSet rs = stmnt.executeQuery("select * from empresa;");
+            LogDAO.getInstance().GenerateLog("Consulta na tabela EMPRESA para CADASTRO EMPRESA");
             List<User> userList = new ArrayList<>();
             while (rs.next()) {
                 String name = rs.getString("nome");
@@ -47,7 +49,7 @@ public class UserDAO {
         } 
     }
 
-    public User Login(String usrEmail, String usrPass) throws SQLException {
+    public User Login(String usrEmail, String usrPass) throws Exception {
         try (
             Statement stmnt = connection.createStatement();
         ){
@@ -55,6 +57,7 @@ public class UserDAO {
             String email = null;
             String pass = null;
             ResultSet rs = stmnt.executeQuery("select * from `8BqaG7Joaq`.`empresa` where `email` = '"+usrEmail+"' and `senha` = '"+usrPass+"' limit 1;");
+            LogDAO.getInstance().GenerateLog("Consulta na tabela EMPRESA para LOGIN");
             while (rs.next()) {
                 name = rs.getString("nome");
                 email = rs.getString("email");
@@ -70,11 +73,12 @@ public class UserDAO {
         }
     }
 
-    public List<User> getPersonList() throws SQLException {
+    public List<User> getPersonList() throws Exception {
         try (
             Statement stmnt = connection.createStatement();
-            ResultSet rs = stmnt.executeQuery("select * from empresa");
         ){
+            ResultSet rs = stmnt.executeQuery("select * from empresa");
+            LogDAO.getInstance().GenerateLog("Consulta na tabela EMPRESA");
             List<User> userList = new ArrayList<>();
             while (rs.next()) {
                 String name = rs.getString("nome");
