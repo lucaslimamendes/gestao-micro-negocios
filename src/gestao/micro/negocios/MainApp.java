@@ -30,7 +30,7 @@ public class MainApp extends Application {
     private ProductDAO dataAccessor ;
     private ObservableList<Product> productData = FXCollections.observableArrayList();
     
-    public MainApp() {
+    public MainApp() throws Exception{
         try {
             dataAccessor = new ProductDAO("8BqaG7Joaq", "KZHhe6stfM");
             List<Product> prdList = dataAccessor.getProductList();
