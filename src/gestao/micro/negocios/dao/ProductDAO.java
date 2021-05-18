@@ -71,8 +71,8 @@ public class ProductDAO {
             Statement stmnt = connection.createStatement();
         ){       
             stmnt.executeUpdate("UPDATE `8BqaG7Joaq`.`produto` SET `quantidade`='"+prod.getInventory()+"',"
-                    + " `descricao`='"+prod.getName()+"', `categoria`='"+prod.getType()+"', `valorUnitario`='"+prod.getUnitPrice()+"',"
-                            + " `valorVenda`='"+prod.getPrice()+"' WHERE `id_produto`='"+prod.getId().toString()+"';");
+                    + " `descricao`='"+prod.getName()+"', `categoria`='"+prod.getType()+"', `valorUnitario`='"+prod.getUnitPrice().toString()+"',"
+                            + " `valorVenda`='"+prod.getPrice().toString()+"' WHERE `id_produto`='"+prod.getId().toString()+"';");
 
             LogDAO.getInstance().GenerateLog("Editar na tabela PRODUTO");
         }

@@ -39,24 +39,12 @@ public class UserDAO {
         }
     }
 
-    public List<User> createPerson(String usrName, String usrEmail, String usrPass) throws Exception {
+    public void createPerson(String usrName, String usrEmail, String usrPass) throws Exception {
         try (
             Statement stmnt = connection.createStatement();
         ){
-            int create = stmnt.executeUpdate("INSERT INTO `8BqaG7Joaq`.`empresa` (`email`, `senha`, `nome`) VALUES ('"+usrEmail+"', '"+usrPass+"', '"+usrName+"');");
+            stmnt.executeUpdate("INSERT INTO `8BqaG7Joaq`.`empresa` (`email`, `senha`, `nome`) VALUES ('"+usrEmail+"', '"+usrPass+"', '"+usrName+"');");
             LogDAO.getInstance().GenerateLog("Inserir na tabela EMPRESA para CADASTRO EMPRESA");
-            ResultSet rs = stmnt.executeQuery("select * from empresa;");
-            LogDAO.getInstance().GenerateLog("Consulta na tabela EMPRESA para CADASTRO EMPRESA");
-            List<User> userList = new ArrayList<>();
-            while (rs.next()) {
-                String name = rs.getString("nome");
-                String email = rs.getString("email");
-                String pass = rs.getString("senha");
-                User person = new User(name, email, pass);
-                userList.add(person);
-            }
-            rs.close();
-            return userList;
         } 
     }
 

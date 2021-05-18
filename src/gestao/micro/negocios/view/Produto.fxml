@@ -39,11 +39,11 @@
       </AnchorPane>
       <TableView fx:id="productTable" layoutX="262.0" layoutY="119.0" prefHeight="481.0" prefWidth="824.0">
         <columns>
-          <TableColumn fx:id="tabName" prefWidth="464.0" text="Descrição" />
-            <TableColumn fx:id="tabInv" prefWidth="56.0" text="QTD" />
-            <TableColumn fx:id="tabType" minWidth="0.0" prefWidth="142.0" text="Categoria" />
-            <TableColumn fx:id="tabPrice" minWidth="6.0" prefWidth="84.0" text="Valor Unit." />
-            <TableColumn fx:id="tabUnit" minWidth="6.0" prefWidth="77.0" text="Valor Venda" />
+          <TableColumn fx:id="tabName" prefWidth="352.0" text="Descrição" />
+            <TableColumn fx:id="tabInv" prefWidth="114.0" text="Quantidade" />
+            <TableColumn fx:id="tabType" minWidth="0.0" prefWidth="190.0" text="Categoria" />
+            <TableColumn fx:id="tabUnit" minWidth="6.0" prefWidth="90.0" text="Preço Unitário" />
+            <TableColumn fx:id="tabPrice" minWidth="6.0" prefWidth="77.0" text="Preço Venda" />
         </columns>
       </TableView>
       <Pane layoutX="262.0" layoutY="1.0" prefHeight="118.0" prefWidth="824.0">

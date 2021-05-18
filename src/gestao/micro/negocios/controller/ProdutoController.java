@@ -38,9 +38,9 @@ public class ProdutoController {
     @FXML
     private TableColumn<Product, String> tabType;
     @FXML
-    private TableColumn<Product, String> tabPrice;
+    private TableColumn<Product, Number> tabPrice;
     @FXML
-    private TableColumn<Product, String> tabUnit;
+    private TableColumn<Product, Number> tabUnit;
 
     /**
      * Initializes the controller class.
@@ -99,7 +99,7 @@ public class ProdutoController {
     }
 
     @FXML
-    private void handleCreate() {
+    private void handleCreate() throws Exception{
         Product tempProduct = new Product();
         boolean okClicked = mainApp.showProductEditDialog(tempProduct, "create");
         if (okClicked) {
@@ -107,7 +107,7 @@ public class ProdutoController {
         }
     }
     
-     public void setMainApp(MainApp mainApp) {
+     public void setMainApp(MainApp mainApp) throws Exception{
         this.mainApp = mainApp;
 
         productTable.setItems(mainApp.getProductData());

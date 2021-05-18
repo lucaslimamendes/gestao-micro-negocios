@@ -22,7 +22,6 @@ public class ProductEditDialogController {
     private TextField nameField;
     @FXML
     private TextField priceField;
-    @FXML
     private Stage dialogStage;
     
     private String action;
@@ -56,10 +55,10 @@ public class ProductEditDialogController {
         this.product = product;
 
         nameField.setText(product.getName());
-        priceField.setText(product.getPrice());
+        priceField.setText(product.getPrice().toString());
         categoryField.setText(product.getType());
         quantityField.setText(product.getInventory().toString());
-        UnitField.setText(product.getUnitPrice());
+        UnitField.setText(product.getUnitPrice().toString());
     }
     
     public void setAction (String action){
@@ -74,10 +73,10 @@ public class ProductEditDialogController {
     private void handleOk() throws Exception {
         if (isInputValid()) {
             product.setName(nameField.getText());
-            product.setPrice(priceField.getText().replace(",", "."));
+            product.setPrice(Float.parseFloat(priceField.getText().replace(",", ".")));
             product.setType(categoryField.getText());
             product.setInventory(Integer.parseInt(quantityField.getText()));
-            product.setUnitPrice(UnitField.getText().replace(",", "."));
+            product.setUnitPrice(Float.parseFloat(UnitField.getText().replace(",", ".")));
             
             switch(action){
                 case "edit":

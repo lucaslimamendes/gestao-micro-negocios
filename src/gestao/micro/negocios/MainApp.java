@@ -7,13 +7,11 @@ import gestao.micro.negocios.controller.DashboardController;
 import gestao.micro.negocios.controller.LoginController;
 import gestao.micro.negocios.controller.RegisterController;
 import gestao.micro.negocios.controller.ProductEditDialogController;
-import gestao.micro.negocios.controller.ProductOverviewController;
 import gestao.micro.negocios.controller.RootController;
 import gestao.micro.negocios.controller.ProdutoController;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,20 +26,18 @@ public class MainApp extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
-    private ObservableList<Product> productData = FXCollections.observableArrayList();
-    
-    public MainApp() throws Exception{
+        
+    public ObservableList<Product> getProductData() {
+        ObservableList<Product> productData = FXCollections.observableArrayList();
         try {
             List<Product> prdList = ProductDAO.getInstance().getProductList();
             for (int i = 0; i < prdList.size(); i++) {
                 productData.add(new Product(Integer.toString(prdList.get(i).getId()), Integer.toString(prdList.get(i).getInventory()),
-                        prdList.get(i).getName(),prdList.get(i).getType(),prdList.get(i).getUnitPrice(),
-                        prdList.get(i).getPrice()));
+                        prdList.get(i).getName(),prdList.get(i).getType(),prdList.get(i).getUnitPrice().toString(),
+                        prdList.get(i).getPrice().toString()));
             }
-        }catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException e){}
-    }
-    
-    public ObservableList<Product> getProductData() {
+        }catch(Exception e){}
+        
         return productData;
     }
 
@@ -69,7 +65,7 @@ public class MainApp extends Application {
             primaryStage.show();
             RootController controller = loader.getController();
             controller.setMainApp(this);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -84,7 +80,7 @@ public class MainApp extends Application {
 
             LoginController controller = loader.getController();
             controller.setMainApp(this);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -99,7 +95,7 @@ public class MainApp extends Application {
 
             RegisterController controller = loader.getController();
             controller.setMainApp(this);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -114,22 +110,7 @@ public class MainApp extends Application {
 
             DashboardController controller = loader.getController();
             controller.setMainApp(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void showProductOverview() {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/ProductOverview.fxml"));
-            AnchorPane productOverview = (AnchorPane) loader.load();
-
-            rootLayout.setCenter(productOverview);
-
-            ProductOverviewController controller = loader.getController();
-            controller.setMainApp(this);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -144,7 +125,7 @@ public class MainApp extends Application {
 
             ProdutoController controller = loader.getController();
             controller.setMainApp(this);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -170,7 +151,7 @@ public class MainApp extends Application {
             dialogStage.showAndWait();
 
             return controller.isOkClicked();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
