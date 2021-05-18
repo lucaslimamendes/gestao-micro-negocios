@@ -24,11 +24,20 @@ import javafx.collections.ObservableList;
 public class ProductDAO {
     private final Connection connection;
     private MainApp mainApp;
+    private static ProductDAO instance;
 
-    public ProductDAO(String user, String password) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+
+    public ProductDAO() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         Class.forName("com.mysql.jdbc.Driver");
-        connection = DriverManager.getConnection("jdbc:mysql://remotemysql.com:3306?autoReconnect=true&useSSL=false", user, password);
-        LogDAO.getInstance().GenerateLog("Conexão obtida com o banco");
+        connection = DriverManager.getConnection("jdbc:mysql://remotemysql.com:3306?autoReconnect=true&useSSL=false", "8BqaG7Joaq", "KZHhe6stfM");
+        LogDAO.getInstance().GenerateLog("Conexão obtida com o banco para PRODUTO");
+    }
+    
+    public static ProductDAO getInstance() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        if (instance == null) {
+            instance = new ProductDAO();
+        }
+        return instance;
     }
 
     public void shutdown() throws SQLException {
@@ -46,6 +55,28 @@ public class ProductDAO {
             LogDAO.getInstance().GenerateLog("Inserir na tabela PRODUTO para CADASTRO PRODUTO");
         }
     }
+     
+    public void deleteProduct (Product prod) throws Exception {
+        try (
+            Statement stmnt = connection.createStatement();
+        ){           
+            stmnt.executeUpdate("DELETE FROM `8BqaG7Joaq`.`produto` WHERE `id_produto`='"+prod.getId().toString()+"';");
+
+            LogDAO.getInstance().GenerateLog("Excluir da tabela PRODUTO");
+        }
+    }
+    
+    public void editProduct (Product prod) throws Exception {
+        try (
+            Statement stmnt = connection.createStatement();
+        ){       
+            stmnt.executeUpdate("UPDATE `8BqaG7Joaq`.`produto` SET `quantidade`='"+prod.getInventory()+"',"
+                    + " `descricao`='"+prod.getName()+"', `categoria`='"+prod.getType()+"', `valorUnitario`='"+prod.getUnitPrice()+"',"
+                            + " `valorVenda`='"+prod.getPrice()+"' WHERE `id_produto`='"+prod.getId().toString()+"';");
+
+            LogDAO.getInstance().GenerateLog("Editar na tabela PRODUTO");
+        }
+    }
         
     public List<Product> getProductList() throws Exception {
         List<Product> prdList = new ArrayList<>();
@@ -60,7 +91,8 @@ public class ProductDAO {
                 String cat = rs.getString("categoria");
                 String unit = rs.getString("valorUnitario");
                 String value = rs.getString("valorVenda");
-                Product product = new Product(qtd, desc, cat, unit, value);
+                String id = rs.getString("id_produto");
+                Product product = new Product(id, qtd, desc, cat, unit, value);
                 prdList.add(product);
             }
             rs.close();

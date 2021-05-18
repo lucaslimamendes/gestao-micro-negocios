@@ -12,6 +12,7 @@ import javafx.beans.property.SimpleStringProperty;
  * @author upper
  */
 public class Product {
+    private final IntegerProperty id;
     private final StringProperty name;
     private final StringProperty price;
     private final StringProperty unitprc;
@@ -20,23 +21,16 @@ public class Product {
 
 
     public Product() {
+        this.id = new SimpleIntegerProperty(0);
         this.name = new SimpleStringProperty("");
         this.price = new SimpleStringProperty("");
         this.unitprc = new SimpleStringProperty("");
         this.inventory = new SimpleIntegerProperty(0);
         this.type = new SimpleStringProperty("");
     }
-/*
-    public Product(String name, String price) {
-        this.name = new SimpleStringProperty(name);
-        this.price = new SimpleStringProperty(price);
-
-        // Alguns dados de exemplo, apenas para testes.
-        this.inventory = new SimpleIntegerProperty(7);
-        this.type = new SimpleStringProperty("Utilitário");
-    }
-  */  
-    public Product(String qtd, String desc, String cat, String unit, String value) {
+ 
+    public Product(String id, String qtd, String desc, String cat, String unit, String value) {
+        this.id = new SimpleIntegerProperty(Integer.parseInt(id));
         this.name = new SimpleStringProperty(desc);
         this.price = new SimpleStringProperty(value);
         this.unitprc = new SimpleStringProperty(unit);
@@ -72,6 +66,10 @@ public class Product {
         this.unitprc.set(price);
     }
     
+    public StringProperty unitProperty() {
+        return unitprc;
+    }
+    
     public StringProperty priceProperty() {
         return price;
     }
@@ -79,12 +77,16 @@ public class Product {
     public Integer getInventory() {
         return inventory.get();
     }
+    
+    public Integer getId() {
+        return id.get();
+    }
 
     public void setInventory(Integer inventory) {
         this.inventory.set(inventory);
     }
 
-    public IntegerProperty streetInventory() {
+    public IntegerProperty inventoryProperty() {
         return inventory;
     }
 

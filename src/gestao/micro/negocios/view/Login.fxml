@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="649.0" prefWidth="1087.0" styleClass="background" stylesheets="@Theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestao.micro.negocios.view.LoginController">
+<AnchorPane id="AnchorPane" prefHeight="649.0" prefWidth="1087.0" styleClass="background" stylesheets="@Theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestao.micro.negocios.controller.LoginController">
    <children>
       <Button layoutX="522.0" layoutY="391.0" mnemonicParsing="false" onAction="#handleRegister" text="Cadastrar" />
       <Button layoutX="654.0" layoutY="391.0" mnemonicParsing="false" onAction="#handleEntrar" text="Entrar" />

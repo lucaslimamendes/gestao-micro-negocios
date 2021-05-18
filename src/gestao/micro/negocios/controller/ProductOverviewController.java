@@ -1,4 +1,4 @@
-package gestao.micro.negocios.view;
+package gestao.micro.negocios.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -53,7 +53,7 @@ public class ProductOverviewController {
     }
     
     @FXML
-    private void handleDeletePerson() {
+    private void handleDelete() {
         int selectedIndex = productTable.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
             productTable.getItems().remove(selectedIndex);
@@ -67,19 +67,19 @@ public class ProductOverviewController {
     }
     
     @FXML
-    private void handleNewPerson() {
+    private void handleCreate() {
         Product tempProduct = new Product();
-        boolean okClicked = mainApp.showProductEditDialog(tempProduct);
+        boolean okClicked = mainApp.showProductEditDialog(tempProduct, "create");
         if (okClicked) {
             mainApp.getProductData().add(tempProduct);
         }
     }
     
     @FXML
-    private void handleEditPerson() {
+    private void handleEdit() {
         Product selectedProduct = productTable.getSelectionModel().getSelectedItem();
         if (selectedProduct != null) {
-            boolean okClicked = mainApp.showProductEditDialog(selectedProduct);
+            boolean okClicked = mainApp.showProductEditDialog(selectedProduct, "edit");
             if (okClicked) {
                 showProductDetails(selectedProduct);
             }

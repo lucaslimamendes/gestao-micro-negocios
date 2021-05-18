@@ -1,4 +1,4 @@
-package gestao.micro.negocios.view;
+package gestao.micro.negocios.controller;
 
 import gestao.micro.negocios.MainApp;
 import javafx.fxml.FXML;
@@ -18,7 +18,7 @@ public class RootController {
     
     @FXML
     private void handleProduct() {
-        mainApp.showProductOverview();
+        mainApp.showProduto();
     }
     
     @FXML

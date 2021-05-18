@@ -1,4 +1,4 @@
-package gestao.micro.negocios.view;
+package gestao.micro.negocios.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -9,9 +9,7 @@ import gestao.micro.negocios.dao.UserDAO;
  *
  * @author upper
  */
-public class RegisterController {
-    private UserDAO dataAccessor ;
-    
+public class RegisterController {   
     @FXML
     private TextField name;
     @FXML
@@ -39,14 +37,13 @@ public class RegisterController {
 
     @FXML
     public void handleCriar() throws Exception {
-        dataAccessor = new UserDAO("remotemysql.com", "8BqaG7Joaq", "KZHhe6stfM");
-        dataAccessor.createPerson(name.getText(), email.getText(), password.getText());
+        UserDAO.getInstance().createPerson(name.getText(), email.getText(), password.getText());
         mainApp.showLogin();
     }
 
     public void stop() throws Exception {
-        if (dataAccessor != null) {
-            dataAccessor.shutdown();
+        if (UserDAO.getInstance() != null) {
+            UserDAO.getInstance().shutdown();
         }
     }
 

@@ -1,4 +1,4 @@
-package gestao.micro.negocios.view;
+package gestao.micro.negocios.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;

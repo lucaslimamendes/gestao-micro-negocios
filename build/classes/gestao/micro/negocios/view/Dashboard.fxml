@@ -21,7 +21,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1087.0" style="-fx-background-color: #2F2B43;" stylesheets="@../../../../css/Dash.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestao.micro.negocios.view.DashboardController">
+<AnchorPane prefHeight="600.0" prefWidth="1087.0" style="-fx-background-color: #2F2B43;" stylesheets="@../../../../css/Dash.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestao.micro.negocios.controller.DashboardController">
    <children>
       <AnchorPane prefHeight="600.0" prefWidth="262.0" style="-fx-background-color: #393351;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
          <children>

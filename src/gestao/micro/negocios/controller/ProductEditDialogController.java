@@ -1,4 +1,4 @@
-package gestao.micro.negocios.view;
+package gestao.micro.negocios.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -18,14 +18,14 @@ import java.sql.SQLException;
  */
 
 public class ProductEditDialogController {
-    private ProductDAO dataAccessor ;
-
     @FXML
     private TextField nameField;
     @FXML
     private TextField priceField;
     @FXML
     private Stage dialogStage;
+    
+    private String action;
     
     private Product product;
     private boolean okClicked = false;
@@ -61,6 +61,10 @@ public class ProductEditDialogController {
         quantityField.setText(product.getInventory().toString());
         UnitField.setText(product.getUnitPrice());
     }
+    
+    public void setAction (String action){
+        this.action = action;
+    }
 
     public boolean isOkClicked() {
         return okClicked;
@@ -70,13 +74,19 @@ public class ProductEditDialogController {
     private void handleOk() throws Exception {
         if (isInputValid()) {
             product.setName(nameField.getText());
-            product.setPrice(priceField.getText());
+            product.setPrice(priceField.getText().replace(",", "."));
             product.setType(categoryField.getText());
             product.setInventory(Integer.parseInt(quantityField.getText()));
-            product.setUnitPrice(UnitField.getText());
+            product.setUnitPrice(UnitField.getText().replace(",", "."));
             
-            dataAccessor = new ProductDAO("8BqaG7Joaq", "KZHhe6stfM");
-            dataAccessor.createProduct(product);
+            switch(action){
+                case "edit":
+                    ProductDAO.getInstance().editProduct(product);
+                    break;
+                case "create":
+                    ProductDAO.getInstance().createProduct(product);
+                    break;
+            }
             okClicked = true;
             dialogStage.close();
         }
@@ -98,6 +108,14 @@ public class ProductEditDialogController {
         }
         if (categoryField.getText() == null || categoryField.getText().length() == 0) {
             errorMessage += "Tipo inválido!\n"; 
+        }
+        
+        if (UnitField.getText() == null || UnitField.getText().length() == 0 || UnitField.getText().matches(".*(([a-z]+)|([A-Z]+)|(((\\.)|(\\,)).*((\\.)|(\\,)))).*")) {
+            errorMessage += "Preço Unitário inválido!\n"; 
+        }
+        
+        if (priceField.getText() == null || priceField.getText().length() == 0 || priceField.getText().matches(".*(([a-z]+)|([A-Z]+)|(((\\.)|(\\,)).*((\\.)|(\\,)))).*")) {
+            errorMessage += "Preço Venda inválido!\n"; 
         }
 
         if (quantityField.getText() == null || quantityField.getText().length() == 0) {

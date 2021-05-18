@@ -1,4 +1,4 @@
-package gestao.micro.negocios.view;
+package gestao.micro.negocios.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -27,8 +27,7 @@ public class LoginController {
 
     @FXML
     private void handleEntrar() throws Exception {
-        dataAccessor = new UserDAO("remotemysql.com", "8BqaG7Joaq", "KZHhe6stfM");
-        User login = dataAccessor.Login(user.getText(), password.getText());
+        User login = UserDAO.getInstance().Login(user.getText(), password.getText());
         if( login != null ){
             mainApp.showDashboard();
         }else {

@@ -3,12 +3,13 @@ package gestao.micro.negocios;
 
 import gestao.micro.negocios.dao.ProductDAO;
 import gestao.micro.negocios.model.Product;
-import gestao.micro.negocios.view.DashboardController;
-import gestao.micro.negocios.view.LoginController;
-import gestao.micro.negocios.view.RegisterController;
-import gestao.micro.negocios.view.ProductEditDialogController;
-import gestao.micro.negocios.view.ProductOverviewController;
-import gestao.micro.negocios.view.RootController;
+import gestao.micro.negocios.controller.DashboardController;
+import gestao.micro.negocios.controller.LoginController;
+import gestao.micro.negocios.controller.RegisterController;
+import gestao.micro.negocios.controller.ProductEditDialogController;
+import gestao.micro.negocios.controller.ProductOverviewController;
+import gestao.micro.negocios.controller.RootController;
+import gestao.micro.negocios.controller.ProdutoController;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -27,23 +28,17 @@ public class MainApp extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
-    private ProductDAO dataAccessor ;
     private ObservableList<Product> productData = FXCollections.observableArrayList();
     
     public MainApp() throws Exception{
         try {
-            dataAccessor = new ProductDAO("8BqaG7Joaq", "KZHhe6stfM");
-            List<Product> prdList = dataAccessor.getProductList();
+            List<Product> prdList = ProductDAO.getInstance().getProductList();
             for (int i = 0; i < prdList.size(); i++) {
-                System.out.println(prdList.get(i).getName());
-                productData.add(new Product(Integer.toString(prdList.get(i).getInventory()),
-                        prdList.get(i).getName(),prdList.get(i).getName(),prdList.get(i).getUnitPrice(),
+                productData.add(new Product(Integer.toString(prdList.get(i).getId()), Integer.toString(prdList.get(i).getInventory()),
+                        prdList.get(i).getName(),prdList.get(i).getType(),prdList.get(i).getUnitPrice(),
                         prdList.get(i).getPrice()));
             }
-        }catch(SQLException e){} catch (ClassNotFoundException ex) {   
-        } catch (InstantiationException ex) {
-        } catch (IllegalAccessException ex) {
-        }
+        }catch(SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException e){}
     }
     
     public ObservableList<Product> getProductData() {
@@ -139,14 +134,29 @@ public class MainApp extends Application {
         }
     }
     
-    public boolean showProductEditDialog(Product product) {
+    public void showProduto() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/Produto.fxml"));
+            AnchorPane productOverview = (AnchorPane) loader.load();
+
+            rootLayout.setCenter(productOverview);
+
+            ProdutoController controller = loader.getController();
+            controller.setMainApp(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public boolean showProductEditDialog(Product product,String action) {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/ProductEditDialog.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
 
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Editar Produto");
+            dialogStage.setTitle(action.equals("edit") ? "Editar Produto" : "Cadastrar Produto");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
@@ -155,6 +165,7 @@ public class MainApp extends Application {
             ProductEditDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setProduct(product);
+            controller.setAction(action);
 
             dialogStage.showAndWait();
 

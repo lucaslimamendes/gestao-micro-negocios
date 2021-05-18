@@ -16,10 +16,21 @@ import java.util.ArrayList;
  */
 public class UserDAO {
     private final Connection connection;
+    private static UserDAO instance;
 
-    public UserDAO(String dbURL, String user, String password) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+
+    public UserDAO() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         Class.forName("com.mysql.jdbc.Driver");
-        connection = DriverManager.getConnection("jdbc:mysql://remotemysql.com:3306?autoReconnect=true&useSSL=false", user, password);
+        connection = DriverManager.getConnection("jdbc:mysql://remotemysql.com:3306?autoReconnect=true&useSSL=false", "8BqaG7Joaq", "KZHhe6stfM");
+        LogDAO.getInstance().GenerateLog("Conexão obtida com o banco para USUARIO");
+
+    }
+    
+    public static UserDAO getInstance() throws Exception {
+        if (instance == null) {
+            instance = new UserDAO();
+        }
+        return instance;
     }
 
     public void shutdown() throws SQLException {

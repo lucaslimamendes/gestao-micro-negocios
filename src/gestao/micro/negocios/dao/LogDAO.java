@@ -21,12 +21,6 @@ public class LogDAO {
     
     private final Connection connection;
     private static LogDAO instance;
-
-
-    public LogDAO(String dbURL, String user, String password) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        Class.forName("com.mysql.jdbc.Driver");
-        connection = DriverManager.getConnection(dbURL, user, password);
-    }
     
     public LogDAO() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         Class.forName("com.mysql.jdbc.Driver");
