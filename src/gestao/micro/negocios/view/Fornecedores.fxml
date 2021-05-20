@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1087.0" style="-fx-background-color: #393351;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestao.micro.negocios.controller.ProdutoController">
+<AnchorPane id="AnchorPane" prefHeight="603.0" prefWidth="1087.0" style="-fx-background-color: #393351;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestao.micro.negocios.controller.FornecedoresController">
    <children>
       <AnchorPane prefHeight="600.0" prefWidth="262.0" style="-fx-background-color: #484066;">
          <children>
@@ -38,26 +38,33 @@
             </Pane>
          </children>
       </AnchorPane>
-      <TableView fx:id="productTable" layoutX="262.0" layoutY="119.0" prefHeight="481.0" prefWidth="824.0">
+      <TableView fx:id="productTable" layoutX="307.0" layoutY="364.0" prefHeight="222.0" prefWidth="735.0">
         <columns>
-          <TableColumn fx:id="tabName" prefWidth="352.0" text="Descrição" />
-            <TableColumn fx:id="tabInv" prefWidth="114.0" text="Quantidade" />
-            <TableColumn fx:id="tabType" minWidth="0.0" prefWidth="190.0" text="Categoria" />
-            <TableColumn fx:id="tabUnit" minWidth="6.0" prefWidth="90.0" text="Preço Unitário" />
-            <TableColumn fx:id="tabPrice" minWidth="6.0" prefWidth="77.0" text="Preço Venda" />
+          <TableColumn fx:id="tabProvider" prefWidth="352.0" text="Fornecedores" />
+            <TableColumn fx:id="tabDetail" prefWidth="327.0" text="Detalhe do Fornecedor" />
+            <TableColumn fx:id="tabOrder" minWidth="6.0" prefWidth="55.0" text="Pedidos" />
         </columns>
       </TableView>
       <Pane layoutX="262.0" layoutY="1.0" prefHeight="118.0" prefWidth="824.0">
          <children>
-            <Button layoutX="670.0" layoutY="40.0" mnemonicParsing="false" onAction="#handleDelete" prefHeight="38.0" prefWidth="140.0" text="Excluir" />
-            <Button layoutX="494.0" layoutY="40.0" mnemonicParsing="false" onAction="#handleEdit" prefHeight="38.0" prefWidth="140.0" text="Editar" />
-            <Button layoutX="318.0" layoutY="40.0" mnemonicParsing="false" onAction="#handleCreate" prefHeight="38.0" prefWidth="140.0" text="Cadastrar" />
-            <Label layoutX="45.0" prefHeight="118.0" prefWidth="230.0" text="Estoque" textAlignment="CENTER" textFill="WHITE">
+            <Label layoutX="45.0" prefHeight="118.0" prefWidth="635.0" text="Fornecedores" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="64.0" />
                </font>
             </Label>
          </children>
       </Pane>
+      <Button layoutX="387.0" layoutY="281.0" mnemonicParsing="false" onAction="#handleProvider" prefHeight="38.0" prefWidth="140.0" text="Novo Fornecedor" />
+      <Button layoutX="805.0" layoutY="281.0" mnemonicParsing="false" onAction="#handleOrder" prefHeight="38.0" prefWidth="140.0" text="Cadastrar Pedido" />
+      <Label layoutX="307.0" layoutY="119.0" prefHeight="62.0" prefWidth="299.0" text="Cadastrar Fornecedor" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="31.0" />
+         </font>
+      </Label>
+      <Label layoutX="708.0" layoutY="119.0" prefHeight="62.0" prefWidth="334.0" text="Pedido com Fornecedor" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="31.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

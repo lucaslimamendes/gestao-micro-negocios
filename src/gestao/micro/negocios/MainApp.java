@@ -3,12 +3,7 @@ package gestao.micro.negocios;
 
 import gestao.micro.negocios.dao.ProductDAO;
 import gestao.micro.negocios.model.Product;
-import gestao.micro.negocios.controller.DashboardController;
-import gestao.micro.negocios.controller.LoginController;
-import gestao.micro.negocios.controller.RegisterController;
-import gestao.micro.negocios.controller.ProductEditDialogController;
-import gestao.micro.negocios.controller.RootController;
-import gestao.micro.negocios.controller.ProdutoController;
+import gestao.micro.negocios.controller.*;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -154,6 +149,21 @@ public class MainApp extends Application {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        }
+    }
+    
+    public void showFornecedores() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/Fornecedores.fxml"));
+            AnchorPane fornecedores = (AnchorPane) loader.load();
+
+            rootLayout.setCenter(fornecedores);
+
+            FornecedoresController controller = loader.getController();
+            controller.setMainApp(this);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     

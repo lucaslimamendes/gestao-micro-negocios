@@ -111,6 +111,48 @@ public class ProdutoController {
         this.mainApp = mainApp;
 
         productTable.setItems(mainApp.getProductData());
+    }    
+     
+     @FXML
+    private void menuShowEventos(ActionEvent event) {
+        //mainApp.showEventos();
+    }
+
+    @FXML
+    private void menuShowEstoque(ActionEvent event) {
+        mainApp.showProduto();
+    }
+
+    @FXML
+    private void menuShowFornecedores(ActionEvent event) {
+        mainApp.showFornecedores();
+    }
+
+    @FXML
+    private void menuShowClientes(ActionEvent event) {
+       // mainApp.showClientes();
+    }
+
+    @FXML
+    private void menuShowFinanceiro(ActionEvent event) {
+       // mainApp.showFinanceiro();
+    }
+
+    @FXML
+    private void menuShowAdm(ActionEvent event) {
+        //mainApp.showAdm();
     }
     
+    @FXML
+    private void menuLogout(ActionEvent event) {
+        Alert del = new Alert (Alert.AlertType.CONFIRMATION);
+        del.setTitle("Confirmar Saída");
+        del.setHeaderText("Deseja realizar sair desta conta?");
+        del.setContentText("Após a confirmação você será enviado para Login.");
+
+        Optional<ButtonType> result = del.showAndWait();
+        if (result.get() == ButtonType.OK){
+            mainApp.showLogin();
+        }
+    }    
 }
