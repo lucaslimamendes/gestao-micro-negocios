@@ -43,8 +43,8 @@ public class UserDAO {
         try (
             Statement stmnt = connection.createStatement();
         ){
-            stmnt.executeUpdate("INSERT INTO `8BqaG7Joaq`.`empresa` (`email`, `senha`, `nome`) VALUES ('"+usrEmail+"', '"+usrPass+"', '"+usrName+"');");
-            LogDAO.getInstance().GenerateLog("Inserir na tabela EMPRESA para CADASTRO EMPRESA");
+            stmnt.executeUpdate("INSERT INTO `8BqaG7Joaq`.`usuario` (`email`, `senha`, `nome`) VALUES ('"+usrEmail+"', '"+usrPass+"', '"+usrName+"');");
+            LogDAO.getInstance().GenerateLog("Inserir na tabela USUARIO para CADASTRO EMPRESA");
         } 
     }
 
@@ -55,8 +55,8 @@ public class UserDAO {
             String name = null;
             String email = null;
             String pass = null;
-            ResultSet rs = stmnt.executeQuery("select * from `8BqaG7Joaq`.`empresa` where `email` = '"+usrEmail+"' and `senha` = '"+usrPass+"' limit 1;");
-            LogDAO.getInstance().GenerateLog("Consulta na tabela EMPRESA para LOGIN");
+            ResultSet rs = stmnt.executeQuery("SELECT * FROM `8BqaG7Joaq`.`usuario` WHERE `email` = '"+usrEmail+"' and `senha` = '"+usrPass+"' limit 1;");
+            LogDAO.getInstance().GenerateLog("Consulta na tabela USUARIO para LOGIN");
             while (rs.next()) {
                 name = rs.getString("nome");
                 email = rs.getString("email");
@@ -76,8 +76,8 @@ public class UserDAO {
         try (
             Statement stmnt = connection.createStatement();
         ){
-            ResultSet rs = stmnt.executeQuery("select * from empresa");
-            LogDAO.getInstance().GenerateLog("Consulta na tabela EMPRESA");
+            ResultSet rs = stmnt.executeQuery("SELECT * FROM `8BqaG7Joaq`.`usuario`");
+            LogDAO.getInstance().GenerateLog("Consulta na tabela USUARIO");
             List<User> userList = new ArrayList<>();
             while (rs.next()) {
                 String name = rs.getString("nome");

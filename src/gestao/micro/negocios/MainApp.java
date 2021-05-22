@@ -1,8 +1,8 @@
 package gestao.micro.negocios;
 
 
-import gestao.micro.negocios.dao.ProductDAO;
-import gestao.micro.negocios.model.Product;
+import gestao.micro.negocios.dao.*;
+import gestao.micro.negocios.model.*;
 import gestao.micro.negocios.controller.*;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -34,6 +34,18 @@ public class MainApp extends Application {
         }catch(Exception e){}
         
         return productData;
+    }
+    
+    public ObservableList<Provider> getProviderData() {
+        ObservableList<Provider> providerData = FXCollections.observableArrayList();
+        try {
+            List<Provider> prvList = ProviderDAO.getInstance().getProviderList();
+            for (int i = 0; i < prvList.size(); i++) {
+                providerData.add(new Provider(prvList.get(i).getName(), prvList.get(i).getDetail(), prvList.get(i).getId().toString()));
+            }
+        }catch(Exception e){}
+        
+        return providerData;
     }
 
     @Override
@@ -141,6 +153,33 @@ public class MainApp extends Application {
             ProductEditDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setProduct(product);
+            controller.setAction(action);
+
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public boolean showProviderDialog(Provider provider,String action) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/ProviderDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle(action.equals("edit") ? "Editar Fornecedor" : "Cadastrar Fornecedor");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            ProviderDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setProvider(provider);
             controller.setAction(action);
 
             dialogStage.showAndWait();

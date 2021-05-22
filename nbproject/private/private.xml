@@ -5,9 +5,13 @@
         <group>
             <file>file:/C:/Users/Escola/Desktop/New%20folder%20(8)/gestao-micro-negocios/src/gestao/micro/negocios/MainApp.java</file>
             <file>file:/C:/Users/Escola/Desktop/New%20folder%20(8)/gestao-micro-negocios/src/gestao/micro/negocios/controller/ProductEditDialogController.java</file>
+            <file>file:/C:/Users/Escola/Desktop/New%20folder%20(8)/gestao-micro-negocios/src/gestao/micro/negocios/dao/ProviderDAO.java</file>
+            <file>file:/C:/Users/Escola/Desktop/New%20folder%20(8)/gestao-micro-negocios/src/gestao/micro/negocios/model/Provider.java</file>
             <file>file:/C:/Users/Escola/Desktop/New%20folder%20(8)/gestao-micro-negocios/src/gestao/micro/negocios/controller/ProdutoController.java</file>
             <file>file:/C:/Users/Escola/Desktop/New%20folder%20(8)/gestao-micro-negocios/src/gestao/micro/negocios/view/Produto.fxml</file>
             <file>file:/C:/Users/Escola/Desktop/New%20folder%20(8)/gestao-micro-negocios/src/gestao/micro/negocios/dao/UserDAO.java</file>
+            <file>file:/C:/Users/Escola/Desktop/New%20folder%20(8)/gestao-micro-negocios/src/gestao/micro/negocios/controller/ProviderDialogController.java</file>
+            <file>file:/C:/Users/Escola/Desktop/New%20folder%20(8)/gestao-micro-negocios/src/gestao/micro/negocios/view/ProviderDialog.fxml</file>
             <file>file:/C:/Users/Escola/Desktop/New%20folder%20(8)/gestao-micro-negocios/src/gestao/micro/negocios/dao/ProductDAO.java</file>
             <file>file:/C:/Users/Escola/Desktop/New%20folder%20(8)/gestao-micro-negocios/src/gestao/micro/negocios/model/Product.java</file>
         </group>

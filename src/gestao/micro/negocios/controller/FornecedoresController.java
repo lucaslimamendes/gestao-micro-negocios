@@ -14,8 +14,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import gestao.micro.negocios.MainApp;
 import gestao.micro.negocios.dao.ProductDAO;
+import gestao.micro.negocios.dao.ProviderDAO;
+import gestao.micro.negocios.model.Provider;
 import java.util.Optional;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 
 
@@ -28,11 +31,13 @@ public class FornecedoresController implements Initializable {
     private MainApp mainApp;
 
     @FXML
-    private TableView<?> productTable;
+    private TableColumn<Provider, String> tabProvider;
     @FXML
-    private TableColumn<?, ?> tabProvider;
+    private TableColumn<Provider, String> tabDetail;
+    //@FXML
+    //private TableColumn<Order, Integer> tabOrder;
     @FXML
-    private TableColumn<?, ?> tabDetail;
+    private TableView<Provider> providerTable;
     @FXML
     private TableColumn<?, ?> tabOrder;
 
@@ -41,16 +46,23 @@ public class FornecedoresController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        tabProvider.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        tabDetail.setCellValueFactory(cellData -> cellData.getValue().detailProperty());
+       // tabOrder.setCellValueFactory(cellData -> cellData.getValue().priceProperty());
     }    
     
     public void setMainApp(MainApp mainApp) throws Exception{
         this.mainApp = mainApp;
-       // productTable.setItems(mainApp.getProductData());
+        providerTable.setItems(mainApp.getProviderData());
     } 
 
     @FXML
-    private void handleProvider(ActionEvent event) {
+    private void handleProvider() {
+        Provider tempProvider = new Provider();
+        boolean okClicked = mainApp.showProviderDialog(tempProvider, "create");
+        if (okClicked) {
+            mainApp.getProviderData().add(tempProvider);
+        }
     }
 
     @FXML
@@ -97,6 +109,50 @@ public class FornecedoresController implements Initializable {
         Optional<ButtonType> result = del.showAndWait();
         if (result.get() == ButtonType.OK){
             mainApp.showLogin();
+        }
+    }
+
+    @FXML
+    private void handleEditProvider(ActionEvent event) {
+        Provider tempProvider = providerTable.getSelectionModel().getSelectedItem();
+        if (tempProvider != null) {
+           mainApp.showProviderDialog(tempProvider, "edit");
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Nenhuma seleção");
+            alert.setHeaderText("Nenhum Fornecedor Selecionado");
+            alert.setContentText("Por favor, selecione um fornecedor na tabela.");
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
+    private void handleDeleteProvider(ActionEvent event) throws Exception{
+        Provider tempProvider = providerTable.getSelectionModel().getSelectedItem();
+        int selectedIndex = providerTable.getSelectionModel().getSelectedIndex();
+        if (selectedIndex >= 0) {
+           Alert del = new Alert (Alert.AlertType.CONFIRMATION);
+           del.setTitle("Confirmar Exclusão");
+           del.setHeaderText("Deseja realmente excluir o cadastro do fornecedor?");
+           del.setContentText("Após a confirmação não será possível reverter a ação.");
+
+           Optional<ButtonType> result = del.showAndWait();
+           if (result.get() == ButtonType.OK){
+            providerTable.getItems().remove(selectedIndex);
+            ProviderDAO.getInstance().deleteProvider(tempProvider);
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Fornecedor Excluído");
+            alert.setHeaderText(null);
+            alert.setContentText("O fornecedor " + tempProvider.getName()+ " foi excluído com sucesso!");
+
+            alert.showAndWait();
+           }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Nenhuma seleção");
+            alert.setHeaderText("Nenhum Fornecedor Selecionado");
+            alert.setContentText("Por favor, selecione um fornecedor da tabela.");
+            alert.showAndWait();
         }
     }
 }
