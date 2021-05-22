@@ -29,7 +29,7 @@ public class LoginController {
     private void handleEntrar() throws Exception {
         User login = UserDAO.getInstance().Login(user.getText(), password.getText());
         if( login != null ){
-            mainApp.showDashboard();
+            mainApp.initMain();
         }else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Dados inválidos");

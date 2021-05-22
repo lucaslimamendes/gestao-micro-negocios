@@ -11,16 +11,25 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.*;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javax.swing.ImageIcon;
 
 public class MainApp extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
+    private AnchorPane mainPane;
+    private AnchorPane viewPane;
+    private Label screenName;
+
+
+
         
     public ObservableList<Product> getProductData() {
         ObservableList<Product> productData = FXCollections.observableArrayList();
@@ -52,15 +61,41 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Gestão Micro Negócio");
+        
+        primaryStage.getIcons().add(new Image(MainApp.class.getResourceAsStream("appIcon.png")));
 
-        initRootLayout();
-
+        
         showLogin();
     }
     
     /**
      * Inicializa o root layout (layout base).
      */
+     public void initMain() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/Main.fxml"));
+            mainPane = (AnchorPane) loader.load();
+            
+            AnchorPane a = (AnchorPane) mainPane.getChildren().get(0);
+            Pane abc = (Pane) a.getChildren().get(0);
+            screenName = (Label) abc.getChildren().get(0);
+            
+            screenName.setText("Menu");
+
+            viewPane = (AnchorPane) mainPane.getChildren().get(1);
+            
+            Scene scene = new Scene(mainPane);
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
+            primaryStage.show();
+            MainController controller = loader.getController();
+            controller.setMainApp(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     public void initRootLayout() {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -83,7 +118,10 @@ public class MainApp extends Application {
             loader.setLocation(MainApp.class.getResource("view/Login.fxml"));
             AnchorPane login = (AnchorPane) loader.load();
 
-            rootLayout.setCenter(login);
+            Scene scene = new Scene(login);
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
+            primaryStage.show();
 
             LoginController controller = loader.getController();
             controller.setMainApp(this);
@@ -96,10 +134,13 @@ public class MainApp extends Application {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/Register.fxml"));
-            AnchorPane login = (AnchorPane) loader.load();
+            AnchorPane register = (AnchorPane) loader.load();
 
-            rootLayout.setCenter(login);
-
+             Scene scene = new Scene(register);
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
+            primaryStage.show();
+            
             RegisterController controller = loader.getController();
             controller.setMainApp(this);
         } catch (Exception e) {
@@ -113,7 +154,7 @@ public class MainApp extends Application {
             loader.setLocation(MainApp.class.getResource("view/Dashboard.fxml"));
             AnchorPane dash = (AnchorPane) loader.load();
 
-            rootLayout.setCenter(dash);
+            viewPane.getChildren().setAll(dash);
 
             DashboardController controller = loader.getController();
             controller.setMainApp(this);
@@ -128,7 +169,9 @@ public class MainApp extends Application {
             loader.setLocation(MainApp.class.getResource("view/Produto.fxml"));
             AnchorPane productOverview = (AnchorPane) loader.load();
 
-            rootLayout.setCenter(productOverview);
+            viewPane.getChildren().setAll(productOverview);
+            screenName.setText("Estoque");
+
 
             ProdutoController controller = loader.getController();
             controller.setMainApp(this);
@@ -197,7 +240,9 @@ public class MainApp extends Application {
             loader.setLocation(MainApp.class.getResource("view/Fornecedores.fxml"));
             AnchorPane fornecedores = (AnchorPane) loader.load();
 
-            rootLayout.setCenter(fornecedores);
+            viewPane.getChildren().setAll(fornecedores);
+            screenName.setText("Fornecedores");
+
 
             FornecedoresController controller = loader.getController();
             controller.setMainApp(this);

@@ -4,69 +4,46 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="603.0" prefWidth="1087.0" style="-fx-background-color: #393351;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestao.micro.negocios.controller.FornecedoresController">
+<AnchorPane id="AnchorPane" prefHeight="595.0" prefWidth="777.0" style="-fx-background-color: #393351;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestao.micro.negocios.controller.FornecedoresController">
    <children>
-      <AnchorPane prefHeight="600.0" prefWidth="262.0" style="-fx-background-color: #484066;">
-         <children>
-            <VBox layoutY="300.0" prefHeight="300.0" prefWidth="262.0">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#menuShowEventos" prefHeight="60.0" prefWidth="262.0" text="Eventos" />
-                  <Button mnemonicParsing="false" onAction="#menuShowEstoque" prefHeight="60.0" prefWidth="262.0" text="Estoque" />
-                  <Button mnemonicParsing="false" onAction="#menuShowFornecedores" prefHeight="60.0" prefWidth="262.0" text="Fornecedores" />
-                  <Button mnemonicParsing="false" onAction="#menuShowClientes" prefHeight="60.0" prefWidth="262.0" text="Clientes" />
-                  <Button mnemonicParsing="false" onAction="#menuShowFinanceiro" prefHeight="60.0" prefWidth="262.0" text="Financeiro" />
-                  <Button mnemonicParsing="false" onAction="#menuShowAdm" prefHeight="60.0" prefWidth="262.0" text="Administrativo" />
-                  <Button layoutX="10.0" layoutY="260.0" mnemonicParsing="false" onAction="#menuLogout" prefHeight="60.0" prefWidth="262.0" text="Sair" underline="true" />
-               </children>
-            </VBox>
-            <ImageView fitHeight="150.0" fitWidth="262.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../images/novologotipo1_simizu_festas_baloes.fw.png" />
-               </image>
-            </ImageView>
-            <Pane layoutY="220.0" prefHeight="80.0" prefWidth="262.0" style="-fx-background-color: #1948b5; -fx-border-radius: 20px;">
-               <children>
-                  <Label layoutX="81.0" layoutY="25.0" prefHeight="30.0" prefWidth="99.0" style="-fx-font-size: 26px; -fx-alignment: center; -fx-font-family: System bol; -fx-text-fill: #ffffff;" text="MENU" textAlignment="RIGHT" />
-               </children>
-            </Pane>
-         </children>
-      </AnchorPane>
-      <TableView fx:id="providerTable" layoutX="307.0" layoutY="364.0" prefHeight="222.0" prefWidth="735.0">
+      <TableView fx:id="providerTable" layoutX="4.0" layoutY="363.0" prefHeight="232.0" prefWidth="768.0">
         <columns>
           <TableColumn fx:id="tabProvider" prefWidth="182.0" text="Fornecedores" />
-            <TableColumn fx:id="tabDetail" prefWidth="497.0" text="Detalhe do Fornecedor" />
-            <TableColumn fx:id="tabOrder" minWidth="6.0" prefWidth="55.0" text="Pedidos" />
+            <TableColumn fx:id="tabDetail" prefWidth="529.0" text="Detalhe do Fornecedor" />
+            <TableColumn fx:id="tabOrder" minWidth="6.0" prefWidth="59.0" text="Pedidos" />
         </columns>
       </TableView>
-      <Pane layoutX="262.0" layoutY="1.0" prefHeight="118.0" prefWidth="824.0">
+      <Pane prefHeight="118.0" prefWidth="387.0" />
+      <Pane layoutY="118.0" prefHeight="232.0" prefWidth="334.0">
          <children>
-            <Label layoutX="45.0" prefHeight="118.0" prefWidth="635.0" text="Fornecedores" textAlignment="CENTER" textFill="WHITE">
+            <Button layoutX="97.0" layoutY="129.0" mnemonicParsing="false" onAction="#handleEditProvider" prefHeight="38.0" prefWidth="140.0" text="Editar Fornecedor" />
+            <Button layoutX="97.0" layoutY="180.0" mnemonicParsing="false" onAction="#handleDeleteProvider" prefHeight="38.0" prefWidth="140.0" text="Excluir Fornecedor" />
+            <Button layoutX="97.0" layoutY="78.0" mnemonicParsing="false" onAction="#handleProvider" prefHeight="38.0" prefWidth="140.0" text="Novo Fornecedor" />
+            <Label layoutX="21.0" prefHeight="62.0" prefWidth="299.0" text="Cadastrar Fornecedor" textAlignment="CENTER" textFill="WHITE">
                <font>
-                  <Font size="64.0" />
+                  <Font size="31.0" />
                </font>
             </Label>
          </children>
       </Pane>
-      <Button layoutX="387.0" layoutY="198.0" mnemonicParsing="false" onAction="#handleProvider" prefHeight="38.0" prefWidth="140.0" text="Novo Fornecedor" />
-      <Button layoutX="805.0" layoutY="281.0" mnemonicParsing="false" onAction="#handleOrder" prefHeight="38.0" prefWidth="140.0" text="Cadastrar Pedido" />
-      <Label layoutX="307.0" layoutY="119.0" prefHeight="62.0" prefWidth="299.0" text="Cadastrar Fornecedor" textAlignment="CENTER" textFill="WHITE">
+      <Pane layoutX="436.0" layoutY="136.0" prefHeight="214.0" prefWidth="342.0">
+         <children>
+            <Label layoutX="4.0" layoutY="-17.0" prefHeight="62.0" prefWidth="334.0" text="Pedido com Fornecedor" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="31.0" />
+               </font>
+            </Label>
+            <Button layoutX="101.0" layoutY="107.0" mnemonicParsing="false" onAction="#handleOrder" prefHeight="38.0" prefWidth="140.0" text="Cadastrar Pedido" />
+         </children>
+      </Pane>
+      <Label layoutX="206.0" prefHeight="118.0" prefWidth="388.0" text="Fornecedores" textAlignment="CENTER" textFill="WHITE">
          <font>
-            <Font size="31.0" />
+            <Font size="64.0" />
          </font>
       </Label>
-      <Label layoutX="708.0" layoutY="119.0" prefHeight="62.0" prefWidth="334.0" text="Pedido com Fornecedor" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font size="31.0" />
-         </font>
-      </Label>
-      <Button layoutX="387.0" layoutY="243.0" mnemonicParsing="false" onAction="#handleEditProvider" prefHeight="38.0" prefWidth="140.0" text="Editar Fornecedor" />
-      <Button layoutX="387.0" layoutY="289.0" mnemonicParsing="false" onAction="#handleDeleteProvider" prefHeight="38.0" prefWidth="140.0" text="Excluir Fornecedor" />
    </children>
 </AnchorPane>
