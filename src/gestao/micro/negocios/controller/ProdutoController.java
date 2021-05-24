@@ -26,6 +26,7 @@ import javafx.scene.control.TableView;
  * @author fael_
  */
 public class ProdutoController {
+    private Integer id;
     private MainApp mainApp;
     
     @FXML
@@ -67,7 +68,7 @@ public class ProdutoController {
            Optional<ButtonType> result = del.showAndWait();
            if (result.get() == ButtonType.OK){
             productTable.getItems().remove(selectedIndex);
-            ProductDAO.getInstance().deleteProduct(tempProduct);
+            ProductDAO.getInstance(id).deleteProduct(tempProduct);
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Produto Excluído");
             alert.setHeaderText(null);
@@ -109,7 +110,8 @@ public class ProdutoController {
     
      public void setMainApp(MainApp mainApp) throws Exception{
         this.mainApp = mainApp;
-
+        this.id = mainApp.getIdUser();
+    
         productTable.setItems(mainApp.getProductData());
     }    
      

@@ -1,5 +1,6 @@
 package gestao.micro.negocios.controller;
 
+import gestao.micro.negocios.MainApp;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -18,6 +19,10 @@ import java.sql.SQLException;
  */
 
 public class ProductEditDialogController {
+    private Integer id;
+    private MainApp mainApp;
+
+
     @FXML
     private TextField nameField;
     @FXML
@@ -44,6 +49,11 @@ public class ProductEditDialogController {
      */
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
+    }
+    
+    public void setMainApp(MainApp mainApp) throws Exception{
+        this.mainApp = mainApp;
+        this.id = mainApp.getIdUser();
     }
 
     /**
@@ -80,10 +90,10 @@ public class ProductEditDialogController {
             
             switch(action){
                 case "edit":
-                    ProductDAO.getInstance().editProduct(product);
+                    ProductDAO.getInstance(id).editProduct(product);
                     break;
                 case "create":
-                    ProductDAO.getInstance().createProduct(product);
+                    ProductDAO.getInstance(id).createProduct(product);
                     break;
             }
             okClicked = true;

@@ -9,18 +9,24 @@ import gestao.micro.negocios.dao.UserDAO;
  *
  * @author upper
  */
-public class RegisterController {   
+public class RegisterController {  
+    private Integer id;
+    private MainApp mainApp;
+    
     @FXML
     private TextField name;
     @FXML
     private TextField email;
     @FXML
     private TextField password;
-
-    private MainApp mainApp;
     
     @FXML
     private void initialize() {
+    }
+    
+    public void setMainApp(MainApp mainApp) throws Exception{
+        this.mainApp = mainApp;
+        this.id = mainApp.getIdUser();
     }
 
     @FXML
@@ -39,15 +45,5 @@ public class RegisterController {
     public void handleCriar() throws Exception {
         UserDAO.getInstance().createPerson(name.getText(), email.getText(), password.getText());
         mainApp.showLogin();
-    }
-
-    public void stop() throws Exception {
-        if (UserDAO.getInstance() != null) {
-            UserDAO.getInstance().shutdown();
-        }
-    }
-
-    public void setMainApp(MainApp mainApp) {
-        this.mainApp = mainApp;
     }
 }

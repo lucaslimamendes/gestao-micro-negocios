@@ -27,14 +27,24 @@ public class MainApp extends Application {
     private AnchorPane mainPane;
     private AnchorPane viewPane;
     private Label screenName;
+    private Integer idUser;
+    private static MainApp instance;
 
-
-
+    public static MainApp getInstance() throws Exception {
+        if (instance == null) {
+            instance = new MainApp();
+        }
+        return instance;
+    }
+    
+    public void MainApp(Integer id){
+        this.idUser = id;
+    }
         
     public ObservableList<Product> getProductData() {
         ObservableList<Product> productData = FXCollections.observableArrayList();
         try {
-            List<Product> prdList = ProductDAO.getInstance().getProductList();
+            List<Product> prdList = ProductDAO.getInstance(idUser).getProductList();
             for (int i = 0; i < prdList.size(); i++) {
                 productData.add(new Product(Integer.toString(prdList.get(i).getId()), Integer.toString(prdList.get(i).getInventory()),
                         prdList.get(i).getName(),prdList.get(i).getType(),prdList.get(i).getUnitPrice().toString(),
@@ -48,7 +58,7 @@ public class MainApp extends Application {
     public ObservableList<Provider> getProviderData() {
         ObservableList<Provider> providerData = FXCollections.observableArrayList();
         try {
-            List<Provider> prvList = ProviderDAO.getInstance().getProviderList();
+            List<Provider> prvList = ProviderDAO.getInstance(idUser).getProviderList();
             for (int i = 0; i < prvList.size(); i++) {
                 providerData.add(new Provider(prvList.get(i).getName(), prvList.get(i).getDetail(), prvList.get(i).getId().toString()));
             }
@@ -96,6 +106,14 @@ public class MainApp extends Application {
         }
     }
     
+    public void setIdUser(Integer id){
+        this.idUser = id;
+    }
+    
+    public Integer getIdUser(){
+        return this.idUser;
+    }
+     
     public void initRootLayout() {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -197,6 +215,8 @@ public class MainApp extends Application {
             controller.setDialogStage(dialogStage);
             controller.setProduct(product);
             controller.setAction(action);
+            controller.setMainApp(this);
+
 
             dialogStage.showAndWait();
 
@@ -224,6 +244,7 @@ public class MainApp extends Application {
             controller.setDialogStage(dialogStage);
             controller.setProvider(provider);
             controller.setAction(action);
+            controller.setMainApp(this);
 
             dialogStage.showAndWait();
 

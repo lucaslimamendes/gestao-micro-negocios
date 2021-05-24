@@ -29,6 +29,7 @@ import javafx.scene.control.ButtonType;
  */
 public class FornecedoresController implements Initializable {
     private MainApp mainApp;
+    private Integer id;
 
     @FXML
     private TableColumn<Provider, String> tabProvider;
@@ -53,6 +54,7 @@ public class FornecedoresController implements Initializable {
     
     public void setMainApp(MainApp mainApp) throws Exception{
         this.mainApp = mainApp;
+        this.id = mainApp.getIdUser();
         providerTable.setItems(mainApp.getProviderData());
     } 
 
@@ -118,7 +120,7 @@ public class FornecedoresController implements Initializable {
            Optional<ButtonType> result = del.showAndWait();
            if (result.get() == ButtonType.OK){
             providerTable.getItems().remove(selectedIndex);
-            ProviderDAO.getInstance().deleteProvider(tempProvider);
+            ProviderDAO.getInstance(id).deleteProvider(tempProvider);
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Fornecedor Excluído");
             alert.setHeaderText(null);

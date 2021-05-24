@@ -22,13 +22,13 @@ public class LogDAO {
     private final Connection connection;
     private static LogDAO instance;
     
-    public LogDAO() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        Class.forName("com.mysql.jdbc.Driver");
-        connection = DriverManager.getConnection("jdbc:mysql://remotemysql.com:3306/8BqaG7Joaq?zeroDateTimeBehavior=convertToNull", "8BqaG7Joaq", "KZHhe6stfM");
+    public LogDAO() throws Exception {
+        connection = connectionDAO.getInstance().connect();
+        GenerateLog("Conexão obtida com o banco para LOG");
     }
     
     /* Implementação do Singleton */
-    public static LogDAO getInstance() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public static LogDAO getInstance() throws Exception {
         if (instance == null) {
             instance = new LogDAO();
         }
@@ -38,13 +38,10 @@ public class LogDAO {
     
     public void GenerateLog(String action) throws SQLException{
         Statement stmnt = connection.createStatement();
-        try{
             Date date = new Date();
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            stmnt.executeUpdate("INSERT INTO `logs` (`date`, `action`) VALUES ('"+formatter.format(date)+"', '"+action+"')");
-        } finally   {
+            stmnt.executeUpdate("INSERT INTO `8BqaG7Joaq`.`logs` (`date`, `action`) VALUES ('"+formatter.format(date)+"', '"+action+"')");
             stmnt.close();
-        }        
     };
     
 }

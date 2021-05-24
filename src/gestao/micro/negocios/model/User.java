@@ -8,21 +8,31 @@ import javafx.beans.property.StringProperty;
  * @author upper
  */
 public class User {
+    private Integer id;
     private final StringProperty name;
     private final StringProperty email;
     private final StringProperty pass;
 
 
     public User() {
-        this(null, null, null);
+        this(null, null, null, null);
     }
 
-    public User(String name, String email, String pass) {
+    public User(String id, String name, String email, String pass) {
+        this.id = Integer.parseInt(id);
         this.name = new SimpleStringProperty(name);
         this.email = new SimpleStringProperty(email);
         this.pass = new SimpleStringProperty(pass);
     }
 
+    public Integer getId() {
+        return this.id;
+    }
+
+    public void setId(String id) {
+        this.id = Integer.parseInt(id);
+    }
+    
     public String getName() {
         return name.get();
     }

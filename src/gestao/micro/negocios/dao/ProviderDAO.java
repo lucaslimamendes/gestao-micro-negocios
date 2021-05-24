@@ -2,6 +2,7 @@ package gestao.micro.negocios.dao;
 
 import gestao.micro.negocios.model.Provider;
 import gestao.micro.negocios.model.User;
+import gestao.micro.negocios.MainApp;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -17,20 +18,21 @@ import java.util.ArrayList;
  */
 public class ProviderDAO {
     private final Connection connection;
+    private Statement stmnt;
     private static ProviderDAO instance;
+    private static Integer idUser;
 
 
-    public ProviderDAO() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        Class.forName("com.mysql.jdbc.Driver");
-        connection = DriverManager.getConnection("jdbc:mysql://remotemysql.com:3306?autoReconnect=true&useSSL=false", "8BqaG7Joaq", "KZHhe6stfM");
-        LogDAO.getInstance().GenerateLog("Conexão obtida com o banco para USUARIO");
-
+    public ProviderDAO() throws Exception {
+        connection = connectionDAO.getInstance().connect("FORNECEDOR");
+        stmnt = connection.createStatement();
     }
     
-    public static ProviderDAO getInstance() throws Exception {
+    public static ProviderDAO getInstance(Integer id) throws Exception {
         if (instance == null) {
             instance = new ProviderDAO();
         }
+        idUser = id;
         return instance;
     }
 
@@ -41,40 +43,52 @@ public class ProviderDAO {
     }
 
     public void createProvider (String provName, String provDetail) throws Exception {
-        try (
-            Statement stmnt = connection.createStatement();
-        ){
-            stmnt.executeUpdate("INSERT INTO `8BqaG7Joaq`.`empresa` (`nome`, `tipo`, `detalhe`) VALUES ('"+provName+"', 'fornecedor', '"+provDetail+"');");
+        if(stmnt.isClosed()){
+            stmnt = connection.createStatement();
+        }
+        try{
+            stmnt.executeUpdate("INSERT INTO `8BqaG7Joaq`.`empresa` (`nome`, `tipo`, `detalhe`, `usuario`) VALUES ('"+provName+"', 'fornecedor', '"+provDetail+"', '"+idUser+"');");
             LogDAO.getInstance().GenerateLog("Inserir fornecedor na tabela EMPRESA para CADASTRO FORNECEDOR");
-        } 
+        }  finally   {
+            stmnt.close();
+        }
     }
     
     public void editProvider (Provider prov) throws Exception {
-        try (
-            Statement stmnt = connection.createStatement();
-        ){       
+        if(stmnt.isClosed()){
+            stmnt = connection.createStatement();
+        }
+        try {       
             stmnt.executeUpdate("UPDATE `8BqaG7Joaq`.`empresa` SET `nome`='"+prov.getName()+"',"
                     + " `detalhe`='"+prov.getDetail()+"', `tipo`='fornecedor' WHERE `id`='"+prov.getId().toString()+"';");
 
             LogDAO.getInstance().GenerateLog("Editar fornecedor na tabela PRODUTO");
+        } finally   {
+            stmnt.close();
         }
     }
     
     public void deleteProvider (Provider prov) throws Exception {
+        if(stmnt.isClosed()){
+            stmnt = connection.createStatement();
+        }
         try (
             Statement stmnt = connection.createStatement();
         ){           
             stmnt.executeUpdate("DELETE FROM `8BqaG7Joaq`.`empresa` WHERE `id`='"+prov.getId().toString()+"';");
 
             LogDAO.getInstance().GenerateLog("Excluir fornedor da tabela EMPRESA");
+        } finally   {
+            stmnt.close();
         }
     }
 
     public List<Provider> getProviderList () throws Exception {
-        try (
-            Statement stmnt = connection.createStatement();
-        ){
-            ResultSet rs = stmnt.executeQuery("SELECT * FROM `8BqaG7Joaq`.`empresa`");
+        if(stmnt.isClosed()){
+            stmnt = connection.createStatement();
+        }
+        try {
+            ResultSet rs = stmnt.executeQuery("SELECT * FROM `8BqaG7Joaq`.`empresa` WHERE `usuario` = '"+idUser+"'");
             LogDAO.getInstance().GenerateLog("Consulta fornecedor na tabela EMPRESA");
             List<Provider> providerList = new ArrayList<>();
             while (rs.next()) {
@@ -85,6 +99,8 @@ public class ProviderDAO {
                 providerList.add(person);
             }
             return providerList ;
-        } 
+        }  finally   {
+            stmnt.close();
+        }
     }
 }

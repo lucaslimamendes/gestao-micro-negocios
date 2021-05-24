@@ -5,6 +5,7 @@
  */
 package gestao.micro.negocios.controller;
 
+import gestao.micro.negocios.MainApp;
 import gestao.micro.negocios.dao.ProviderDAO;
 import gestao.micro.negocios.model.Provider;
 import java.net.URL;
@@ -22,6 +23,8 @@ import javafx.stage.Stage;
  * @author Escola
  */
 public class ProviderDialogController implements Initializable {
+    private MainApp mainApp;
+    private Integer id;
 
     @FXML
     private TextField nomeField;
@@ -44,7 +47,12 @@ public class ProviderDialogController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }  
+    
+    public void setMainApp(MainApp mainApp) throws Exception{
+        this.mainApp = mainApp;
+        this.id = mainApp.getIdUser();
+    }
 
     @FXML
     private void handleOk(ActionEvent event) throws Exception{
@@ -54,10 +62,10 @@ public class ProviderDialogController implements Initializable {
             
             switch(action){
                 case "edit":
-                    ProviderDAO.getInstance().editProvider(provider);
+                    ProviderDAO.getInstance(id).editProvider(provider);
                     break;
                 case "create":
-                    ProviderDAO.getInstance().createProvider(provider.getName(), provider.getDetail());
+                    ProviderDAO.getInstance(id).createProvider(provider.getName(), provider.getDetail());
                     break;
             }
             okClicked = true;
