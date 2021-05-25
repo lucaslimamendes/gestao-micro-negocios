@@ -4,21 +4,18 @@ package gestao.micro.negocios;
 import gestao.micro.negocios.dao.*;
 import gestao.micro.negocios.model.*;
 import gestao.micro.negocios.controller.*;
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javax.swing.ImageIcon;
 
 public class MainApp extends Application {
 
@@ -40,7 +37,7 @@ public class MainApp extends Application {
     public void MainApp(Integer id){
         this.idUser = id;
     }
-        
+    
     public ObservableList<Product> getProductData() {
         ObservableList<Product> productData = FXCollections.observableArrayList();
         try {
@@ -94,7 +91,7 @@ public class MainApp extends Application {
             screenName.setText("Menu");
 
             viewPane = (AnchorPane) mainPane.getChildren().get(1);
-            
+                        
             Scene scene = new Scene(mainPane);
             primaryStage.setScene(scene);
             primaryStage.setResizable(false);

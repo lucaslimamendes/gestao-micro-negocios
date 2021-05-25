@@ -6,6 +6,7 @@
 package gestao.micro.negocios.controller;
 
 import gestao.micro.negocios.MainApp;
+import gestao.micro.negocios.dao.UserDAO;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -16,6 +17,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
@@ -35,7 +38,15 @@ public class MainController implements Initializable {
     @FXML
     private Pane paneName;
     @FXML
-    private Pane logoPane;
+    private ImageView logoPane;
+    @FXML
+    private Label screenName;
+    @FXML
+    private Label screenName1;
+    @FXML
+    private Label screenName11;
+    @FXML
+    private Label screenName111;
 
 
     /**
@@ -45,8 +56,9 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     }    
     
-    public void setMainApp(MainApp mainApp) {
+    public void setMainApp(MainApp mainApp) throws Exception{
         this.mainApp = mainApp;
+        logoPane.setImage(UserDAO.getInstance().getLogo(mainApp.getIdUser()));
     }
 
     @FXML

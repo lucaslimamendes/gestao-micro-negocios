@@ -34,5 +34,4 @@ public class connectionDAO {
         Connection connect = DriverManager.getConnection("jdbc:mysql://remotemysql.com:3306?autoReconnect=true&useSSL=false", "8BqaG7Joaq", "KZHhe6stfM");
         return connect;
     }
-    
 }

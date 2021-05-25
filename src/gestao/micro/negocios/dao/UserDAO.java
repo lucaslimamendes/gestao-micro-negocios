@@ -1,14 +1,20 @@
 package gestao.micro.negocios.dao;
 
 import gestao.micro.negocios.model.User;
+import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
+import javafx.scene.image.Image;
+import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
 import java.util.List;
 import java.util.ArrayList;
+import javafx.embed.swing.SwingFXUtils;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -32,15 +38,18 @@ public class UserDAO {
         return instance;
     }
 
-    public void createPerson(String usrName, String usrEmail, String usrPass) throws Exception {
-        if(stmnt.isClosed()){
-            stmnt = connection.createStatement();
-        }
+    public void createPerson(String usrName, String usrEmail, String usrPass, FileInputStream img) throws Exception {
+        PreparedStatement prep = connection.prepareStatement("INSERT INTO `8BqaG7Joaq`.`usuario` (`email`, `senha`, `nome`, `logo`) VALUES ((?), (?), (?), (?));");
+        prep.setString(1, usrEmail);
+        prep.setString(2, usrPass);
+        prep.setString(3, usrName);
+        prep.setBinaryStream(4, img);
+
         try {
-            stmnt.executeUpdate("INSERT INTO `8BqaG7Joaq`.`usuario` (`email`, `senha`, `nome`) VALUES ('"+usrEmail+"', '"+usrPass+"', '"+usrName+"');");
+            prep.executeUpdate();
             LogDAO.getInstance().GenerateLog("Inserir na tabela USUARIO para CADASTRO EMPRESA");
         }  finally   {
-            stmnt.close();
+            prep.close();
         }
     }
 
@@ -83,7 +92,7 @@ public class UserDAO {
             LogDAO.getInstance().GenerateLog("Consulta na tabela USUARIO");
             List<User> userList = new ArrayList<>();
             while (rs.next()) {
-                String id = rs.getString("id");;
+                String id = rs.getString("id");
                 String name = rs.getString("nome");
                 String email = rs.getString("email");
                 String pass = rs.getString("senha");
@@ -94,5 +103,25 @@ public class UserDAO {
         }  finally   {
             stmnt.close();
         }
+    }
+    
+    public Image getLogo(Integer idUser) throws Exception {
+        if(stmnt.isClosed()){
+            stmnt = connection.createStatement();
+        }
+        ResultSet rs;
+        Image img = null;
+        try {
+            rs = stmnt.executeQuery("SELECT * FROM `8BqaG7Joaq`.`usuario` WHERE `id` = '"+idUser+"' limit 1;");    
+            if(rs.next())   {
+                Blob foto = rs.getBlob("logo");
+                InputStream is = foto.getBinaryStream();
+                img = new Image(is);
+            }
+            LogDAO.getInstance().GenerateLog("Consulta de LOGO tabela USUARIO");
+        }  finally   {
+            stmnt.close();
+        }
+        return img;
     }
 }
