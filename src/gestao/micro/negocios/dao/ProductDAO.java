@@ -22,8 +22,8 @@ import javafx.collections.ObservableList;
  * @author Escola
  */
 public class ProductDAO {
-    private final Connection connection;
-    private Statement stmnt;
+    private static Connection connection;
+    private static Statement stmnt;
     private MainApp mainApp;
     private static ProductDAO instance;
     private static Integer idUser;
@@ -38,6 +38,11 @@ public class ProductDAO {
         if (instance == null) {
             instance = new ProductDAO();
         }
+        
+        if(stmnt.isClosed()){
+            stmnt = connection.createStatement();
+        }
+        
         idUser = id;
         return instance;
     }
@@ -49,9 +54,6 @@ public class ProductDAO {
     }
     
      public void createProduct (Product prod) throws Exception {
-        if(stmnt.isClosed()){
-            stmnt = connection.createStatement();
-        }
          try {
             stmnt.executeUpdate("INSERT INTO `8BqaG7Joaq`.`produto` (`quantidade`, `descricao`, `categoria`, "
                     + "`valorUnitario`, `valorVenda`, `usuario`) VALUES ('"+prod.getInventory()+"', '"+prod.getName()+"', '"+prod.getType()+"', "
@@ -63,10 +65,6 @@ public class ProductDAO {
     }
      
     public void deleteProduct (Product prod) throws Exception {
-        if(stmnt.isClosed()){
-            stmnt = connection.createStatement();
-        }
-        
         try {           
             stmnt.executeUpdate("DELETE FROM `8BqaG7Joaq`.`produto` WHERE `id_produto`='"+prod.getId().toString()+"';");
 
@@ -77,10 +75,6 @@ public class ProductDAO {
     }
     
     public void editProduct (Product prod) throws Exception {
-        if(stmnt.isClosed()){
-            stmnt = connection.createStatement();
-        }
-        
         try {       
             stmnt.executeUpdate("UPDATE `8BqaG7Joaq`.`produto` SET `quantidade`='"+prod.getInventory()+"',"
                     + " `descricao`='"+prod.getName()+"', `categoria`='"+prod.getType()+"', `valorUnitario`='"+prod.getUnitPrice().toString()+"',"
@@ -93,9 +87,6 @@ public class ProductDAO {
     }
         
     public List<Product> getProductList() throws Exception {
-        if(stmnt.isClosed()){
-            stmnt = connection.createStatement();
-        }
         List<Product> prdList = new ArrayList<>();
         try {
             ResultSet rs = stmnt.executeQuery("SELECT * FROM `8BqaG7Joaq`.`produto` WHERE `usuario` = '"+idUser+"'");

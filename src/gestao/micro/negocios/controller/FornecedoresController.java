@@ -41,6 +41,10 @@ public class FornecedoresController implements Initializable {
     private TableView<Provider> providerTable;
     @FXML
     private TableColumn<?, ?> tabOrder;
+    @FXML
+    private TableColumn<Provider, String> tabTelefone;
+    @FXML
+    private TableColumn<Provider, String> tabEmail;
 
     /**
      * Initializes the controller class.
@@ -50,6 +54,8 @@ public class FornecedoresController implements Initializable {
         tabProvider.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         tabDetail.setCellValueFactory(cellData -> cellData.getValue().detailProperty());
        // tabOrder.setCellValueFactory(cellData -> cellData.getValue().priceProperty());
+        tabTelefone.setCellValueFactory(cellData -> cellData.getValue().telefoneProperty());
+        tabEmail.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
     }    
     
     public void setMainApp(MainApp mainApp) throws Exception{

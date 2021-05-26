@@ -42,12 +42,13 @@ public class ProviderDAO {
         }
     }
 
-    public void createProvider (String provName, String provDetail) throws Exception {
+    public void createProvider (Provider prov) throws Exception {
         if(stmnt.isClosed()){
             stmnt = connection.createStatement();
         }
         try{
-            stmnt.executeUpdate("INSERT INTO `8BqaG7Joaq`.`empresa` (`nome`, `tipo`, `detalhe`, `usuario`) VALUES ('"+provName+"', 'fornecedor', '"+provDetail+"', '"+idUser+"');");
+            stmnt.executeUpdate("INSERT INTO `8BqaG7Joaq`.`empresa` (`nome`, `tipo`, `detalhe`, `usuario`, `email`, `telefone`) VALUES ('"+prov.getName()+"', 'fornecedor', "
+                    + "'"+prov.getDetail()+"', '"+idUser+"', '"+prov.getEmail()+"', '"+prov.getTelefone()+"');");
             LogDAO.getInstance().GenerateLog("Inserir fornecedor na tabela EMPRESA para CADASTRO FORNECEDOR");
         }  finally   {
             stmnt.close();
@@ -88,14 +89,16 @@ public class ProviderDAO {
             stmnt = connection.createStatement();
         }
         try {
-            ResultSet rs = stmnt.executeQuery("SELECT * FROM `8BqaG7Joaq`.`empresa` WHERE `usuario` = '"+idUser+"'");
+            ResultSet rs = stmnt.executeQuery("SELECT * FROM `8BqaG7Joaq`.`empresa` WHERE `tipo` = 'fornecedor' AND `usuario` = '"+idUser+"'");
             LogDAO.getInstance().GenerateLog("Consulta fornecedor na tabela EMPRESA");
             List<Provider> providerList = new ArrayList<>();
             while (rs.next()) {
                 String id = rs.getString("id");
                 String name = rs.getString("nome");
                 String detail  = rs.getString("detalhe");
-                Provider person = new Provider(name, detail, id);
+                String email = rs.getString("email");
+                String telefone  = rs.getString("telefone");
+                Provider person = new Provider(name, detail, id, email, telefone);
                 providerList.add(person);
             }
             return providerList ;

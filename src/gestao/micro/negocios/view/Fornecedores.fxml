@@ -10,11 +10,13 @@
 
 <AnchorPane id="AnchorPane" prefHeight="595.0" prefWidth="777.0" style="-fx-background-color: #393351;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestao.micro.negocios.controller.FornecedoresController">
    <children>
-      <TableView fx:id="providerTable" layoutX="4.0" layoutY="363.0" prefHeight="232.0" prefWidth="768.0">
+      <TableView fx:id="providerTable" layoutX="8.0" layoutY="363.0" prefHeight="226.0" prefWidth="759.0">
         <columns>
           <TableColumn fx:id="tabProvider" prefWidth="182.0" text="Fornecedores" />
-            <TableColumn fx:id="tabDetail" prefWidth="529.0" text="Detalhe do Fornecedor" />
-            <TableColumn fx:id="tabOrder" minWidth="6.0" prefWidth="59.0" text="Pedidos" />
+            <TableColumn fx:id="tabDetail" prefWidth="162.0" text="Detalhe do Fornecedor" />
+            <TableColumn fx:id="tabTelefone" prefWidth="243.0" text="Telefone" />
+            <TableColumn fx:id="tabEmail" prefWidth="107.0" text="Email" />
+            <TableColumn fx:id="tabOrder" minWidth="6.0" prefWidth="68.0" text="Pedidos" />
         </columns>
       </TableView>
       <Pane prefHeight="118.0" prefWidth="387.0" />

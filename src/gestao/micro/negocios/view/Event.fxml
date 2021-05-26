@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestao.micro.negocios.controller.EventController">
+   <children>
+      <AnchorPane id="AnchorPane" layoutX="-7.0" prefHeight="595.0" prefWidth="777.0" style="-fx-background-color: #393351;">
+         <children>
+            <Label alignment="CENTER" layoutX="195.0" prefHeight="118.0" prefWidth="388.0" text="Evento" textFill="WHITE">
+               <font>
+                  <Font size="64.0" />
+               </font>
+            </Label>
+            <AnchorPane layoutX="14.0" layoutY="103.0" prefHeight="80.0" prefWidth="757.0">
+               <children>
+                  <Label layoutX="14.0" layoutY="29.0" prefHeight="38.0" prefWidth="97.0" text="Cliente:" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="545.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="38.0" prefWidth="86.0" text="Buscar " />
+                  <TextField fx:id="clientField" layoutX="124.0" layoutY="35.0" prefHeight="25.0" prefWidth="401.0" />
+                  <Button layoutX="640.0" layoutY="29.0" mnemonicParsing="false" onAction="#handleCreate" prefHeight="38.0" prefWidth="97.0" text="Cadastrar" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="11.0" layoutY="163.0" prefHeight="70.0" prefWidth="757.0">
+               <children>
+                  <Label layoutX="14.0" layoutY="16.0" prefHeight="38.0" prefWidth="272.0" text="Quantidade de pessoas:" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="peopleField" layoutX="280.0" layoutY="23.0" prefHeight="25.0" prefWidth="40.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutY="213.0" prefHeight="70.0" prefWidth="757.0">
+               <children>
+                  <Label layoutX="26.0" layoutY="17.0" prefHeight="38.0" prefWidth="186.0" text="Data do evento:" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="dateField" layoutX="205.0" layoutY="24.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="18.0" layoutY="283.0" prefHeight="189.0" prefWidth="742.0">
+               <children>
+                  <TextArea fx:id="productField" layoutX="10.0" layoutY="41.0" prefHeight="176.0" prefWidth="722.0" />
+                  <Label layoutX="10.0" layoutY="-5.0" prefHeight="38.0" prefWidth="186.0" text="Lista de produtos:" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <Button layoutX="576.0" layoutY="534.0" mnemonicParsing="false" onAction="#handleNext" prefHeight="38.0" prefWidth="97.0" text="Avançar" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
