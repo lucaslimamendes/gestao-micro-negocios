@@ -1,57 +1,47 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gestao.micro.negocios.controller;
 
 import gestao.micro.negocios.MainApp;
-import gestao.micro.negocios.dao.ProviderDAO;
-import gestao.micro.negocios.model.Provider;
+import gestao.micro.negocios.dao.CustomerDAO;
+import gestao.micro.negocios.model.Customer;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  *
- * @author Escola
+ * @author fael_
  */
-public class ProviderDialogController implements Initializable {
+public class CustomerDialogController implements Initializable {
+
     private MainApp mainApp;
     private Integer id;
-
-    @FXML
-    private TextField nomeField;
-    @FXML
-    private TextField detalheField;
-    
-    private Stage dialogStage;
-    
+    private Stage dialogStage;    
     private String action;
-
-    private Provider provider;
-    
+    private Customer customer;    
     private boolean okClicked = false;
+    
     @FXML
-    private TextField telefoneField;
+    private TextField nameField;
     @FXML
-    private TextField emailFIeld;
+    private TextField emailField;
+    @FXML
+    private TextField telephoneField;
+    @FXML
+    private Button btnCancel;
+    @FXML
+    private Button btnSave;
 
-
-
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }  
+    }    
     
     public void setMainApp(MainApp mainApp) throws Exception{
         this.mainApp = mainApp;
@@ -61,18 +51,16 @@ public class ProviderDialogController implements Initializable {
     @FXML
     private void handleOk(ActionEvent event) throws Exception{
         if (isInputValid()) {
-            provider.setName(nomeField.getText());
-            provider.setDetail(detalheField.getText());
-            provider.setTelefone(telefoneField.getText());
-            provider.setEmail(emailFIeld.getText());
-            
+            customer.setName(nameField.getText());
+            customer.setEmail(emailField.getText());
+            customer.setTelefone(telephoneField.getText());
             
             switch(action){
                 case "edit":
-                    ProviderDAO.getInstance(id).editProvider(provider);
+                    CustomerDAO.getInstance(id).editCustomer(customer);
                     break;
                 case "create":
-                    ProviderDAO.getInstance(id).createProvider(provider);
+                    CustomerDAO.getInstance(id).createCustomer(customer.getName(), customer.getEmail(), customer.getTelefone());
                     break;
             }
             okClicked = true;
@@ -94,11 +82,12 @@ public class ProviderDialogController implements Initializable {
         this.dialogStage = dialogStage;
     }
     
-    public void setProvider(Provider provider) {
-        this.provider = provider;
+    public void setCustomer(Customer cust) {
+        this.customer = cust;
 
-        nomeField.setText(provider.getName());
-        detalheField.setText(provider.getDetail());
+        nameField.setText(customer.getName());
+        emailField.setText(customer.getEmail());
+        telephoneField.setText(customer.getTelefone());
     }
     
     public boolean isOkClicked() { 
@@ -108,20 +97,16 @@ public class ProviderDialogController implements Initializable {
     private boolean isInputValid() {
         String errorMessage = "";
 
-        if (nomeField.getText() == null || nomeField.getText().length() == 0) {
+        if (nameField.getText() == null || nameField.getText().length() == 0) {
             errorMessage += "Nome inválido!\n"; 
         }
         
-        if (detalheField.getText() == null || detalheField.getText().length() == 0) {
-            errorMessage += "Detalhe inválido!\n";
+        if (emailField.getText() == null || emailField.getText().length() == 0) {
+            errorMessage += "Email inválido!\n";
         }
         
-        if (telefoneField.getText() == null || telefoneField.getText().length() == 0) {
+        if (telephoneField.getText() == null || telephoneField.getText().length() == 0) {
             errorMessage += "Telefone inválido!\n";
-        }
-         
-        if (emailFIeld.getText() == null || emailFIeld.getText().length() == 0) {
-            errorMessage += "Email inválido!\n";
         }
         
         if (errorMessage.length() == 0) {

@@ -21,8 +21,8 @@ import javax.swing.ImageIcon;
  * @author upper
  */
 public class UserDAO {
-    private final Connection connection;
-    private Statement stmnt;
+    private static Connection connection;
+    private static Statement stmnt;
     private static UserDAO instance;
 
 
@@ -35,6 +35,11 @@ public class UserDAO {
         if (instance == null) {
             instance = new UserDAO();
         }
+        
+        if(stmnt.isClosed()){
+            stmnt = connection.createStatement();
+        }
+        
         return instance;
     }
 
@@ -54,9 +59,6 @@ public class UserDAO {
     }
 
     public User Login(String usrEmail, String usrPass) throws Exception {
-        if(stmnt.isClosed()){
-            stmnt = connection.createStatement();
-        }
         try {
             String id = null;
             String name = null;
@@ -82,11 +84,7 @@ public class UserDAO {
         }
     }
 
-    public List<User> getPersonList() throws Exception {
-        if(stmnt.isClosed()){
-            stmnt = connection.createStatement();
-        }
-        
+    public List<User> getPersonList() throws Exception {       
         try {
             ResultSet rs = stmnt.executeQuery("SELECT * FROM `8BqaG7Joaq`.`usuario`");
             LogDAO.getInstance().GenerateLog("Consulta na tabela USUARIO");
@@ -106,9 +104,6 @@ public class UserDAO {
     }
     
     public Image getLogo(Integer idUser) throws Exception {
-        if(stmnt.isClosed()){
-            stmnt = connection.createStatement();
-        }
         ResultSet rs;
         Image img = null;
         try {

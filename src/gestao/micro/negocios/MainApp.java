@@ -38,6 +38,19 @@ public class MainApp extends Application {
         this.idUser = id;
     }
     
+    public ObservableList<Customer> getCustomerData() {
+        ObservableList<Customer> customerData = FXCollections.observableArrayList();
+        try {
+            List<Customer> custList = CustomerDAO.getInstance(idUser).getCustomerList();
+            for (int i = 0; i < custList.size(); i++) {
+                customerData.add(new Customer(custList.get(i).getId().toString(), custList.get(i).getName().toString(),
+                        custList.get(i).getEmail().toString(), custList.get(i).getTelefone().toString()));
+            }
+        }catch(Exception e){}
+        
+        return customerData;
+    }
+    
     public ObservableList<Product> getProductData() {
         ObservableList<Product> productData = FXCollections.observableArrayList();
         try {
@@ -57,7 +70,7 @@ public class MainApp extends Application {
         try {
             List<Provider> prvList = ProviderDAO.getInstance(idUser).getProviderList();
             for (int i = 0; i < prvList.size(); i++) {
-                providerData.add(new Provider(prvList.get(i).getName(), prvList.get(i).getDetail(), prvList.get(i).getId().toString()));
+                providerData.add(new Provider(prvList.get(i).getName(), prvList.get(i).getDetail(), prvList.get(i).getId().toString(), prvList.get(i).getEmail(), prvList.get(i).getTelefone()));
             }
         }catch(Exception e){}
         
@@ -214,7 +227,8 @@ public class MainApp extends Application {
             controller.setAction(action);
             controller.setMainApp(this);
 
-
+            dialogStage.getIcons().add(new Image(MainApp.class.getResourceAsStream("appIcon.png")));
+            dialogStage.setResizable(false);
             dialogStage.showAndWait();
 
             return controller.isOkClicked();
@@ -243,12 +257,78 @@ public class MainApp extends Application {
             controller.setAction(action);
             controller.setMainApp(this);
 
+            dialogStage.getIcons().add(new Image(MainApp.class.getResourceAsStream("appIcon.png")));
+            dialogStage.setResizable(false);
             dialogStage.showAndWait();
 
             return controller.isOkClicked();
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        }
+    }
+    
+    public void showEvent(){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/Event.fxml"));
+            AnchorPane event = (AnchorPane) loader.load();
+
+            viewPane.getChildren().setAll(event);
+            screenName.setText("Evento");
+
+
+            EventController controller = loader.getController();
+            controller.setMainApp(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }        
+    }
+    
+    public boolean showCustomerDialog(Customer customer,String action) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/CustomerDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle(action.equals("edit") ? "Editar Cliente" : "Cadastrar Cliente");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            CustomerDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setCustomer(customer);
+            controller.setAction(action);
+            controller.setMainApp(this);
+
+            dialogStage.getIcons().add(new Image(MainApp.class.getResourceAsStream("appIcon.png")));
+            dialogStage.setResizable(false);
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public void showCustomer() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/Customer.fxml"));
+            AnchorPane customer = (AnchorPane) loader.load();
+
+            viewPane.getChildren().setAll(customer);
+            screenName.setText("Cliente");
+
+
+            CustomerController controller = loader.getController();
+            controller.setMainApp(this);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     
