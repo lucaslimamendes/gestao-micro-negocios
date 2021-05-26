@@ -126,7 +126,7 @@
                   </Button>
                </children>
             </VBox>
-            <ImageView fx:id="logoPane" fitHeight="139.0" fitWidth="200.0" layoutX="31.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="logoPane" fitHeight="139.0" fitWidth="200.0" layoutX="31.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: center;" />
          </children></AnchorPane>
       <AnchorPane fx:id="viewPane" layoutX="273.0" layoutY="6.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="800.0">
          <children>

@@ -63,6 +63,19 @@ public class MainApp extends Application {
         
         return providerData;
     }
+    
+    public ObservableList<Customer> getCustomerData() {
+        ObservableList<Customer> customerData = FXCollections.observableArrayList();
+        try {
+            List<Customer> custList = CustomerDAO.getInstance(idUser).getCustomerList();
+            for (int i = 0; i < custList.size(); i++) {
+                customerData.add(new Customer(custList.get(i).getId().toString(), custList.get(i).getName().toString(),
+                        custList.get(i).getEmail().toString(), custList.get(i).getTelefone().toString()));
+            }
+        }catch(Exception e){}
+        
+        return customerData;
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -263,6 +276,52 @@ public class MainApp extends Application {
 
 
             FornecedoresController controller = loader.getController();
+            controller.setMainApp(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
+    public boolean showCustomerDialog(Customer customer,String action) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/CustomerDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle(action.equals("edit") ? "Editar Cliente" : "Cadastrar Cliente");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            CustomerDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setCustomer(customer);
+            controller.setAction(action);
+            controller.setMainApp(this);
+
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public void showClientes() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/Customer.fxml"));
+            AnchorPane customer = (AnchorPane) loader.load();
+
+            viewPane.getChildren().setAll(customer);
+            screenName.setText("Cliente");
+
+
+            CustomerController controller = loader.getController();
             controller.setMainApp(this);
         } catch (Exception e) {
             e.printStackTrace();

@@ -85,6 +85,7 @@ public class MainController implements Initializable {
 
     @FXML
     private void menuShowClient(ActionEvent event) {
+        mainApp.showClientes();
     }
 
     @FXML
