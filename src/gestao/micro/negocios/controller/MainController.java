@@ -63,6 +63,7 @@ public class MainController implements Initializable {
 
     @FXML
     private void menuShowCalendar(ActionEvent event) {
+        mainApp.showCalendar();
     }
 
     @FXML

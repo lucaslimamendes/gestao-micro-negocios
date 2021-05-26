@@ -76,6 +76,10 @@ public class FornecedoresController implements Initializable {
     @FXML
     private void handleOrder(ActionEvent event) {
     }
+     
+    private void menuShowCalendar(ActionEvent event) {
+        mainApp.showCalendar();
+    }
 
 
     private void menuShowEstoque(ActionEvent event) {
