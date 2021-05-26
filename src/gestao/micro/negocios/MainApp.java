@@ -4,6 +4,7 @@ package gestao.micro.negocios;
 import gestao.micro.negocios.dao.*;
 import gestao.micro.negocios.model.*;
 import gestao.micro.negocios.controller.*;
+import java.time.YearMonth;
 import java.util.List;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -172,6 +173,23 @@ public class MainApp extends Application {
             viewPane.getChildren().setAll(dash);
 
             DashboardController controller = loader.getController();
+            controller.setMainApp(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void showCalendar() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/Calendar.fxml"));
+            AnchorPane calendarOverview = (AnchorPane) loader.load();
+
+            viewPane.getChildren().setAll(calendarOverview);
+            screenName.setText("Calendário");
+
+            CalendarController controller = loader.getController();
+            controller.calendarPane.getChildren().add(new CalendarView(YearMonth.now()).getView());
             controller.setMainApp(this);
         } catch (Exception e) {
             e.printStackTrace();

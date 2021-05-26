@@ -115,6 +115,9 @@ public class ProdutoController {
         productTable.setItems(mainApp.getProductData());
     }    
      
+    private void menuShowCalendar(ActionEvent event) {
+        mainApp.showCalendar();
+    }
 
     private void menuShowEstoque(ActionEvent event) {
         mainApp.showProduto();
