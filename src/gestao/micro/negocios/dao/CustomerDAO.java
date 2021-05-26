@@ -13,13 +13,8 @@ import java.util.List;
  * @author fael_
  */
 public class CustomerDAO {
-<<<<<<< HEAD
     private static Connection connection;
     private static Statement stmnt;
-=======
-    private final Connection connection;
-    private Statement stmnt;
->>>>>>> 4f162ab09590a3a504ad0400147c94d1b4312820
     private static CustomerDAO instance;
     private static Integer idUser;
 
@@ -33,13 +28,9 @@ public class CustomerDAO {
         if (instance == null) {
             instance = new CustomerDAO();
         }
-<<<<<<< HEAD
         if(stmnt.isClosed()){
             stmnt = connection.createStatement();
         }
-        
-=======
->>>>>>> 4f162ab09590a3a504ad0400147c94d1b4312820
         idUser = id;
         return instance;
     }
@@ -51,12 +42,6 @@ public class CustomerDAO {
     }
 
     public void createCustomer (String custName, String custEmail, String custTel) throws Exception {
-<<<<<<< HEAD
-=======
-        if(stmnt.isClosed()){
-            stmnt = connection.createStatement();
-        }
->>>>>>> 4f162ab09590a3a504ad0400147c94d1b4312820
         try{
             stmnt.executeUpdate("INSERT INTO `8BqaG7Joaq`.`empresa` (`nome`, `tipo`, `detalhe`, `usuario`, `email`, `telefone`) "
                     + "VALUES ('"+custName+"', 'cliente', 'cliente', '"+idUser+"', '"+custEmail+"', '"+custTel+"');");
@@ -67,12 +52,6 @@ public class CustomerDAO {
     }
     
     public void editCustomer (Customer customer) throws Exception {
-<<<<<<< HEAD
-=======
-        if(stmnt.isClosed()){
-            stmnt = connection.createStatement();
-        }
->>>>>>> 4f162ab09590a3a504ad0400147c94d1b4312820
         try {       
             stmnt.executeUpdate("UPDATE `8BqaG7Joaq`.`empresa` SET `nome`='"+customer.getName()+"', `detalhe`='', " 
                     + " `email`='"+customer.getEmail()+"', `tipo`='cliente', `telefone`='"+customer.getTelefone()+"'"
@@ -85,12 +64,6 @@ public class CustomerDAO {
     }
     
     public void deleteCustomer (Customer customer) throws Exception {
-<<<<<<< HEAD
-=======
-        if(stmnt.isClosed()){
-            stmnt = connection.createStatement();
-        }
->>>>>>> 4f162ab09590a3a504ad0400147c94d1b4312820
         try (
             Statement stmnt = connection.createStatement();
         ){           
@@ -103,16 +76,8 @@ public class CustomerDAO {
     }
 
     public List<Customer> getCustomerList () throws Exception {
-<<<<<<< HEAD
         try {
             ResultSet rs = stmnt.executeQuery("SELECT * FROM `8BqaG7Joaq`.`empresa` WHERE `tipo` = 'cliente' AND `usuario` = '"+idUser+"';");
-=======
-        if(stmnt.isClosed()){
-            stmnt = connection.createStatement();
-        }
-        try {
-            ResultSet rs = stmnt.executeQuery("SELECT * FROM `8BqaG7Joaq`.`empresa` WHERE `tipo` = 'cliente'");
->>>>>>> 4f162ab09590a3a504ad0400147c94d1b4312820
             LogDAO.getInstance().GenerateLog("Consulta cliente na tabela EMPRESA");
             List<Customer> customerList = new ArrayList<>();
             while (rs.next()) {

@@ -9,11 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<<<<<<< HEAD
 <AnchorPane id="AnchorPane" prefHeight="315.0" prefWidth="600.0" style="-fx-background-color: #2F2B43;" stylesheets="@../../../../css/Dash.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestao.micro.negocios.controller.CustomerDialogController">
-=======
-<AnchorPane id="AnchorPane" prefHeight="315.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gestao.micro.negocios.controller.CustomerDialogController">
->>>>>>> 4f162ab09590a3a504ad0400147c94d1b4312820
    <children>
       <GridPane layoutX="30.0" layoutY="69.0" prefHeight="178.0" prefWidth="540.0">
         <columnConstraints>
@@ -26,29 +22,19 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-<<<<<<< HEAD
             <Label text="Nome" textFill="WHITE">
-=======
-            <Label text="Nome">
->>>>>>> 4f162ab09590a3a504ad0400147c94d1b4312820
+
                <font>
                   <Font size="26.0" />
                </font>
             </Label>
-<<<<<<< HEAD
             <Label layoutX="10.0" layoutY="32.0" text="Email" textFill="WHITE" GridPane.rowIndex="1">
-=======
-            <Label layoutX="10.0" layoutY="32.0" text="Email" GridPane.rowIndex="1">
->>>>>>> 4f162ab09590a3a504ad0400147c94d1b4312820
+
                <font>
                   <Font size="26.0" />
                </font>
             </Label>
-<<<<<<< HEAD
             <Label layoutX="10.0" layoutY="91.0" text="Telefone" textFill="WHITE" GridPane.rowIndex="2">
-=======
-            <Label layoutX="10.0" layoutY="91.0" text="Telefone" GridPane.rowIndex="2">
->>>>>>> 4f162ab09590a3a504ad0400147c94d1b4312820
                <font>
                   <Font size="26.0" />
                </font>
@@ -58,19 +44,11 @@
             <TextField fx:id="telephoneField" layoutX="203.0" layoutY="85.0" prefHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-<<<<<<< HEAD
       <Button fx:id="btnCancel" layoutX="461.0" layoutY="266.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="35.0" prefWidth="109.0" styleClass="button3" text="Cancelar" textFill="WHITE" />
       <Button fx:id="btnSave" layoutX="337.0" layoutY="266.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="35.0" prefWidth="118.0" styleClass="button3" text="Salvar" textFill="WHITE" />
       <Label layoutX="113.0" text="Cadastro de Cliente" textFill="WHITE">
          <font>
             <Font name="System Bold" size="41.0" />
-=======
-      <Button fx:id="btnCancel" layoutX="470.0" layoutY="266.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="35.0" prefWidth="100.0" text="Cancelar" />
-      <Button fx:id="btnSave" layoutX="337.0" layoutY="266.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="35.0" prefWidth="100.0" text="Salvar" />
-      <Label layoutX="170.0" layoutY="14.0" text="Cadastro de Cliente">
-         <font>
-            <Font name="System Bold" size="30.0" />
->>>>>>> 4f162ab09590a3a504ad0400147c94d1b4312820
          </font>
       </Label>
    </children>

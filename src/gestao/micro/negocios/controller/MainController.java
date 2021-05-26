@@ -86,11 +86,7 @@ public class MainController implements Initializable {
 
     @FXML
     private void menuShowClient(ActionEvent event) {
-<<<<<<< HEAD
-        mainApp.showCustomer();
-=======
         mainApp.showClientes();
->>>>>>> 4f162ab09590a3a504ad0400147c94d1b4312820
     }
 
     @FXML
