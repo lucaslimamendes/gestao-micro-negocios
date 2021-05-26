@@ -8,7 +8,11 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+<<<<<<< HEAD
     <jar href="gestao-micro-negocios.jar" size="225936" download="eager" />
+=======
+    <jar href="gestao-micro-negocios.jar" size="223061" download="eager" />
+>>>>>>> 4f162ab09590a3a504ad0400147c94d1b4312820
     <jar href="lib\mysql-connector-java-5.1.5-bin.jar" size="676693" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="gestao-micro-negocios" >
