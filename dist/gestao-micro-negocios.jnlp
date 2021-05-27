@@ -8,8 +8,10 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="gestao-micro-negocios.jar" size="225995" download="eager" />
-    <jar href="lib\mysql-connector-java-5.1.5-bin.jar" size="676693" download="eager" />
+    <jar href="gestao-micro-negocios.jar" size="239649" download="eager" />
+    <jar href="lib/mysql-connector-java-5.1.5-bin.jar" size="676693" download="eager" />
+    <jar href="lib/recurrence-11.6.4.jar" size="163387" download="eager" />
+    <jar href="lib/view-11.10.1.jar" size="834748" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="gestao-micro-negocios" >
     <param name="requiredFXVersion" value="8.0+"/>

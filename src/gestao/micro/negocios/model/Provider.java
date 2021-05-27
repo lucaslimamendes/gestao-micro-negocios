@@ -12,17 +12,19 @@ public class Provider {
     private final StringProperty detail;
     private final StringProperty email;
     private final StringProperty telefone;
+    private final StringProperty pedidos;
 
     public Provider() {
-        this(null, null, "0", null, null);
+        this(null, null, "0", null, null, "0");
     }
 
-    public Provider(String name, String detail, String id, String email, String telefone) {
+    public Provider(String name, String detail, String id, String email, String telefone, String pedidos) {
         this.name = new SimpleStringProperty(name);
         this.detail = new SimpleStringProperty(detail);
         this.id = new SimpleIntegerProperty(Integer.parseInt(id));
         this.email = new SimpleStringProperty(email);
         this.telefone = new SimpleStringProperty(telefone);
+        this.pedidos = new SimpleStringProperty(pedidos);
     }
 
     public String getName() {
@@ -59,6 +61,18 @@ public class Provider {
 
     public IntegerProperty idProperty() {
         return id;
+    } 
+    
+    public String getPedidos() {
+        return pedidos.get();
+    }
+
+    public void setPedidos(String pedidos) {
+        this.pedidos.set(pedidos);
+    }
+
+    public StringProperty pedidosProperty() {
+        return pedidos;
     } 
     
     public String getEmail() {

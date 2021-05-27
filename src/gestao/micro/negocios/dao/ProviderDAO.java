@@ -89,7 +89,7 @@ public class ProviderDAO {
             stmnt = connection.createStatement();
         }
         try {
-            ResultSet rs = stmnt.executeQuery("SELECT * FROM `8BqaG7Joaq`.`empresa` WHERE `tipo` = 'fornecedor' AND `usuario` = '"+idUser+"'");
+            ResultSet rs = stmnt.executeQuery("SELECT *,(select count(*) from `8BqaG7Joaq`.`pedido` ped where emp.id = ped.cliente) pedidos FROM `8BqaG7Joaq`.`empresa` emp WHERE `tipo` = 'fornecedor' AND `usuario` = '"+idUser+"'");
             LogDAO.getInstance().GenerateLog("Consulta fornecedor na tabela EMPRESA");
             List<Provider> providerList = new ArrayList<>();
             while (rs.next()) {
@@ -98,7 +98,8 @@ public class ProviderDAO {
                 String detail  = rs.getString("detalhe");
                 String email = rs.getString("email");
                 String telefone  = rs.getString("telefone");
-                Provider person = new Provider(name, detail, id, email, telefone);
+                String pedidos  = rs.getString("pedidos");
+                Provider person = new Provider(name, detail, id, email, telefone, pedidos);
                 providerList.add(person);
             }
             return providerList ;

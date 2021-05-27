@@ -15,6 +15,7 @@ import javafx.scene.control.TableView;
 import gestao.micro.negocios.MainApp;
 import gestao.micro.negocios.dao.ProductDAO;
 import gestao.micro.negocios.dao.ProviderDAO;
+import gestao.micro.negocios.model.Order;
 import gestao.micro.negocios.model.Provider;
 import java.util.Optional;
 import javafx.scene.control.Alert;
@@ -40,7 +41,7 @@ public class FornecedoresController implements Initializable {
     @FXML
     private TableView<Provider> providerTable;
     @FXML
-    private TableColumn<?, ?> tabOrder;
+    private TableColumn<Provider, String> tabOrder;
     @FXML
     private TableColumn<Provider, String> tabTelefone;
     @FXML
@@ -53,7 +54,7 @@ public class FornecedoresController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         tabProvider.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         tabDetail.setCellValueFactory(cellData -> cellData.getValue().detailProperty());
-       // tabOrder.setCellValueFactory(cellData -> cellData.getValue().priceProperty());
+        tabOrder.setCellValueFactory(cellData -> cellData.getValue().pedidosProperty());
         tabTelefone.setCellValueFactory(cellData -> cellData.getValue().telefoneProperty());
         tabEmail.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
     }    
@@ -75,6 +76,20 @@ public class FornecedoresController implements Initializable {
 
     @FXML
     private void handleOrder(ActionEvent event) {
+        Provider tempProvider = providerTable.getSelectionModel().getSelectedItem();
+        if (tempProvider != null) {
+            Order tempOrder = new Order();
+            boolean okClicked = mainApp.showOrderDialog(tempProvider, tempOrder);
+            if (okClicked) {
+                mainApp.getProviderData().add(tempProvider);
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Nenhuma seleção");
+            alert.setHeaderText("Nenhum Fornecedor Selecionado");
+            alert.setContentText("Por favor, selecione um fornecedor na tabela.");
+            alert.showAndWait();
+        }
     }
      
     private void menuShowCalendar(ActionEvent event) {

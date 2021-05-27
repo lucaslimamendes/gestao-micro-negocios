@@ -71,7 +71,7 @@ public class MainApp extends Application {
         try {
             List<Provider> prvList = ProviderDAO.getInstance(idUser).getProviderList();
             for (int i = 0; i < prvList.size(); i++) {
-                providerData.add(new Provider(prvList.get(i).getName(), prvList.get(i).getDetail(), prvList.get(i).getId().toString(), prvList.get(i).getEmail(), prvList.get(i).getTelefone()));
+                providerData.add(new Provider(prvList.get(i).getName(), prvList.get(i).getDetail(), prvList.get(i).getId().toString(), prvList.get(i).getEmail(), prvList.get(i).getTelefone(), prvList.get(i).getPedidos()));
             }
         }catch(Exception e){}
         
@@ -273,6 +273,36 @@ public class MainApp extends Application {
             controller.setDialogStage(dialogStage);
             controller.setProvider(provider);
             controller.setAction(action);
+            controller.setMainApp(this);
+
+            dialogStage.getIcons().add(new Image(MainApp.class.getResourceAsStream("appIcon.png")));
+            dialogStage.setResizable(false);
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public boolean showOrderDialog(Provider provider,Order order) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/OrderDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Cadastrar Fornecedor");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            OrderDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setProvider(provider);
+            controller.setOrder(order);
             controller.setMainApp(this);
 
             dialogStage.getIcons().add(new Image(MainApp.class.getResourceAsStream("appIcon.png")));
