@@ -39,6 +39,19 @@ public class MainApp extends Application {
         this.idUser = id;
     }
     
+     public ObservableList<Cost> getCostData() {
+        ObservableList<Cost> costData = FXCollections.observableArrayList();
+        try {
+            List<Cost> costList = CostDAO.getInstance(idUser).getCostList();
+            for (int i = 0; i < costList.size(); i++) {
+                costData.add(new Cost(costList.get(i).getId().toString(), costList.get(i).getData(),
+                        costList.get(i).getPrice().toString(), costList.get(i).getDesc()));
+            }
+        }catch(Exception e){}
+        
+        return costData;
+    }
+    
     public ObservableList<Customer> getCustomerData() {
         ObservableList<Customer> customerData = FXCollections.observableArrayList();
         try {
@@ -209,6 +222,23 @@ public class MainApp extends Application {
         }
     }
     
+    public void showCost() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/Cost.fxml"));
+            AnchorPane calendarOverview = (AnchorPane) loader.load();
+
+            viewPane.getChildren().setAll(calendarOverview);
+            screenName.setText("Custo");
+
+            CostController controller = loader.getController();
+            controller.calendarPane.getChildren().add(new CalendarView(YearMonth.now()).getView());
+            controller.setMainApp(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     public void showProduto() {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -242,6 +272,36 @@ public class MainApp extends Application {
             ProductEditDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setProduct(product);
+            controller.setAction(action);
+            controller.setMainApp(this);
+
+            dialogStage.getIcons().add(new Image(MainApp.class.getResourceAsStream("appIcon.png")));
+            dialogStage.setResizable(false);
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public boolean showCostDialog(Cost cost,String action) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("view/CostDialog.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle(action.equals("edit") ? "Editar Custo" : "Cadastrar Custo");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            CostDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setCost(cost);
             controller.setAction(action);
             controller.setMainApp(this);
 
